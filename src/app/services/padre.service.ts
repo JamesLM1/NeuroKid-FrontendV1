@@ -20,7 +20,7 @@ import { ADMINAsignacionDTO } from '../models/admin-asignacion.dto';
 })
 export class PadreService {
 
-  ruta_servidor: string = "http://localhost:8080/api/padres";
+  ruta_servidor: string = "https://neurokid-api-v2.onrender.com/api/padres";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
