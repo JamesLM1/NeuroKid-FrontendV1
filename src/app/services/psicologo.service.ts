@@ -16,7 +16,7 @@ import { PSICOLOGOEvaluacionDTO } from '../models/psicologo-evaluacion.dto';
 })
 export class PsicologoService {
 
-  ruta_servidor: string = "http://localhost:8080/api/psicologos";
+  ruta_servidor: string = "https://neurokid-api-v2.onrender.com/api/psicologos";
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
