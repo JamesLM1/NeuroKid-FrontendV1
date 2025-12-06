@@ -1,0 +1,140 @@
+/* Estilos para la Ficha de Atención Clínica */
+
+/* Header con información del paciente */
+.patient-info-header {
+  background: #f5f7fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.patient-main {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex: 1;
+  min-width: 250px;
+}
+
+.avatar-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  color: #00897B;
+  /* Color teal del psicólogo */
+  background: rgba(0, 137, 123, 0.1);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.patient-main h3 {
+  margin: 0;
+  font-weight: 600;
+  color: #1a1a1a;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.cita-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.cita-details p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.cita-details mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: #00897B;
+}
+
+.motivo {
+  font-style: italic;
+  color: #555;
+  margin-top: 4px !important;
+}
+
+.motivo strong {
+  color: #333;
+  font-style: normal;
+}
+
+/* Divider */
+mat-divider {
+  margin: 20px 0;
+}
+
+/* Formulario clínico */
+.clinical-form {
+  margin-top: 24px;
+}
+
+.clinical-form mat-form-field {
+  width: 100%;
+  margin-bottom: 20px !important;
+}
+
+.clinical-form textarea {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* Acciones del diálogo */
+mat-dialog-actions {
+  padding: 16px 24px;
+  margin-top: 8px;
+}
+
+mat-dialog-actions button {
+  margin-left: 8px;
+}
+
+mat-dialog-actions button[color="primary"] {
+  background-color: #00897B;
+  color: white;
+}
+
+mat-dialog-actions button[color="primary"]:hover {
+  background-color: #00796B;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .patient-info-header {
+    flex-direction: column;
+  }
+
+  .patient-main {
+    width: 100%;
+  }
+
+  .cita-details {
+    width: 100%;
+  }
+}

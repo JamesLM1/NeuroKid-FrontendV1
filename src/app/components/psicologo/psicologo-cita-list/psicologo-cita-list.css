@@ -1,0 +1,63 @@
+/* Estilos para los botones de acción */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-buttons button {
+  transition: transform 0.2s ease;
+}
+
+.action-buttons button:hover {
+  transform: scale(1.1);
+}
+
+/* Mejora visual para el mensaje de fecha futura */
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+/* Estilos Nucleares de Tabla */
+table {
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+.mat-column-fecha {
+  width: 10% !important;
+  text-align: center !important;
+}
+
+.mat-column-hora {
+  width: 12% !important;
+  text-align: center !important;
+}
+
+.mat-column-menor {
+  width: 15% !important;
+}
+
+.mat-column-padre {
+  width: 15% !important;
+}
+
+.mat-column-motivo {
+  width: 20% !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.mat-column-estado {
+  width: 10% !important;
+  text-align: center !important;
+}
+
+.mat-column-actions {
+  width: 18% !important;
+  text-align: center !important;
+}

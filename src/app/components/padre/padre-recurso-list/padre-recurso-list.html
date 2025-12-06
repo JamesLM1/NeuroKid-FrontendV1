@@ -1,0 +1,35 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Recursos Educativos</h2>
+    <div class="dashboard-filter" style="max-width: 300px;">
+      <input type="text" (keyup)="applyFilter($event)" placeholder="Buscar por título...">
+    </div>
+  </div>
+
+  <div class="nk-grid">
+    
+    <mat-card *ngFor="let recurso of recursosFiltrados" class="nk-card nk-resource-card card-hover">
+      <img mat-card-image [src]="recurso.imagenUrl || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=640&h=360&fit=crop&q=80'" 
+           [alt]="recurso.titulo">
+      
+      <mat-card-content>
+        <h3>{{ recurso.titulo }}</h3>
+        <p>{{ recurso.descripcion }}</p>
+        <div class="nk-resource-meta">
+          <span>{{ recurso.tipo || 'Recurso educativo' }}</span>
+          <button mat-icon-button 
+                  [color]="recurso.isFavorito ? 'warn' : 'basic'" 
+                  (click)="toggleFavorito(recurso)"
+                  [matTooltip]="recurso.isFavorito ? 'Quitar de favoritos' : 'Añadir a favoritos'">
+            <mat-icon>{{ recurso.isFavorito ? 'star' : 'star_border' }}</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div *ngIf="recursosFiltrados.length === 0" class="dashboard-empty">
+      <mat-icon>search_off</mat-icon>
+      <p>No se encontraron recursos. Intenta con otra búsqueda.</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Gestión de Citas</h2>
+    <button mat-raised-button color="primary" (click)="openAddDialog()" class="nk-btn-primary">
+      <mat-icon>add</mat-icon>
+      Solicitar Cita
+    </button>
+  </div>
+
+  <h3 style="font-size: 1.25rem; font-weight: 600; margin-top: 1rem; margin-bottom: 1rem;">Próximas Citas</h3>
+  <div class="dashboard-table-container">
+    <table mat-table [dataSource]="dsProximas" class="nk-table">
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let c"> {{c.fecha | date: 'dd/MM/yyyy':'UTC'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="horaInicio">
+        <th mat-header-cell *matHeaderCellDef> Hora </th>
+        <td mat-cell *matCellDef="let c"> {{ formatRangoHoras(c.horaInicio, c.horaFin) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="menor">
+        <th mat-header-cell *matHeaderCellDef> Menor </th>
+        <td mat-cell *matCellDef="let c"> {{c.nombreMenor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="psicologo">
+        <th mat-header-cell *matHeaderCellDef> Psicólogo </th>
+        <td mat-cell *matCellDef="let c"> {{c.nombrePsicologo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let c">
+          <span class="badge-status"
+            [class.badge-status--pending]="c.estado === 'Pendiente' || c.estado === 'Programada'"
+            [class.badge-status--confirmed]="c.estado === 'Confirmada'"
+            [class.badge-status--done]="c.estado === 'Finalizada'"
+            [class.badge-status--cancel]="c.estado === 'Cancelada' || c.estado === 'Rechazada'">
+            <ng-container *ngIf="c.estado === 'Pendiente'">Pendiente de Aprobación</ng-container>
+            <ng-container *ngIf="c.estado === 'Programada'">Programada</ng-container>
+            <ng-container *ngIf="c.estado === 'Confirmada'">Confirmada</ng-container>
+            <ng-container *ngIf="c.estado === 'Finalizada'">Finalizada</ng-container>
+            <ng-container *ngIf="c.estado === 'Cancelada'">Cancelada</ng-container>
+            <ng-container *ngIf="c.estado === 'Rechazada'">Rechazada</ng-container>
+            <ng-container
+              *ngIf="c.estado !== 'Pendiente' && c.estado !== 'Programada' && c.estado !== 'Confirmada' && c.estado !== 'Finalizada' && c.estado !== 'Cancelada' && c.estado !== 'Rechazada'">{{c.estado}}</ng-container>
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+        <td mat-cell *matCellDef="let c">
+          <button mat-icon-button color="warn" (click)="cancelarCita(c)" matTooltip="Cancelar Cita">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" [colSpan]="displayedColumns.length">No tiene próximas citas.</td>
+      </tr>
+    </table>
+  </div>
+
+  <h3 style="font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Historial de Citas</h3>
+  <div class="dashboard-table-container">
+    <table mat-table [dataSource]="dsHistorial" class="nk-table">
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let c"> {{c.fecha | date: 'dd/MM/yyyy':'UTC'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="horaInicio">
+        <th mat-header-cell *matHeaderCellDef> Hora </th>
+        <td mat-cell *matCellDef="let c"> {{ formatRangoHoras(c.horaInicio, c.horaFin) }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="menor">
+        <th mat-header-cell *matHeaderCellDef> Menor </th>
+        <td mat-cell *matCellDef="let c"> {{c.nombreMenor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="psicologo">
+        <th mat-header-cell *matHeaderCellDef> Psicólogo </th>
+        <td mat-cell *matCellDef="let c"> {{c.nombrePsicologo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef> Estado </th>
+        <td mat-cell *matCellDef="let c">
+          <span class="badge-status" [class.badge-status--done]="c.estado === 'Finalizada'"
+            [class.badge-status--cancel]="c.estado === 'Cancelada' || c.estado === 'Rechazada'">
+            {{c.estado}}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+        <td mat-cell *matCellDef="let c">
+          <!-- Botón Ver Detalles (Solo Finalizadas) -->
+          <button mat-icon-button color="primary" (click)="openDetailsDialog(c)" matTooltip="Ver Hallazgos"
+            [disabled]="c.estado !== 'Finalizada'">
+            <mat-icon>visibility</mat-icon>
+          </button>
+
+          <!-- Botón Calificar (Solo Finalizadas y No Calificadas) -->
+          <button mat-icon-button color="accent" *ngIf="c.estado === 'Finalizada' && !c.tieneEvaluacion"
+            (click)="openEvaluarDialog(c)" matTooltip="Calificar Atención">
+            <mat-icon>star_border</mat-icon>
+          </button>
+
+          <!-- Indicador Calificada (Click para ver) -->
+          <button mat-icon-button *ngIf="c.tieneEvaluacion" (click)="verEvaluacion(c)" matTooltip="Ver tu evaluación">
+            <mat-icon class="text-yellow-500" style="color: #fbbf24;">star</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" [colSpan]="displayedColumns.length">No hay citas en el historial.</td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,213 @@
+/* Estilos para el diálogo de Detalle de Cita */
+
+/* Header: Resumen de la Cita */
+.cita-summary {
+  background: #f0f4f8;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.summary-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.summary-item mat-icon {
+  font-size: 32px;
+  width: 32px;
+  height: 32px;
+  color: #00897B;
+  /* Color teal del psicólogo */
+}
+
+.summary-item .avatar-icon {
+  background: rgba(0, 137, 123, 0.1);
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+}
+
+.summary-item .label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.summary-item .value {
+  display: block;
+  font-size: 16px;
+  color: #1a1a1a;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.summary-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.motivo-section {
+  color: #444;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.motivo-section strong {
+  color: #333;
+  font-style: normal;
+  margin-right: 4px;
+}
+
+/* Chip de estado */
+mat-chip {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.chip-finalizada {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+/* Divider */
+mat-divider {
+  margin: 20px 0;
+}
+
+/* Sección de Hallazgos */
+.hallazgos-section {
+  margin-top: 24px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+}
+
+.section-title mat-icon {
+  color: #00897B;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+
+/* Caja de hallazgos */
+.hallazgos-box {
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #333;
+  white-space: pre-wrap;
+  /* Respeta saltos de línea */
+  word-wrap: break-word;
+  min-height: 100px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.hallazgos-box.sin-hallazgos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #999;
+  font-style: italic;
+  background: #fafafa;
+  border: 1px dashed #e0e0e0;
+}
+
+.hallazgos-box.sin-hallazgos mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #ccc;
+}
+
+.hallazgos-box.sin-hallazgos p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Acciones del diálogo */
+mat-dialog-actions {
+  padding: 16px 24px;
+  margin-top: 8px;
+}
+
+/* Estilos para secciones clínicas */
+.clinical-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.clinical-section .section-title {
+  font-size: 16px;
+  color: #00897B;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.clinical-section p {
+  margin: 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .summary-header {
+    flex-direction: column;
+  }
+
+  .summary-item {
+    width: 100%;
+  }
+
+  .summary-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cita-summary {
+    padding: 16px;
+  }
+
+  .hallazgos-box {
+    padding: 16px;
+  }
+}

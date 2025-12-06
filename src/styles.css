@@ -1,0 +1,1703 @@
+/* ==========================================================================
+   NeuroKid – Stylesheet Global Mejorado para Angular
+   - Variables, tokens y helpers optimizados
+   - Componentes (botones, tarjetas, formularios, modales, tablas)
+   - Utilidades responsivas y accesibilidad
+   - Compatible con Angular Material
+   ========================================================================== */
+
+/* Importar tema prebuilt de Angular Material (REQUERIDO para datepicker) */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* =========================
+   1) TOKENS / VARIABLES
+   ========================= */
+:root {
+  /* Paleta de colores NeuroKid */
+  --nk-primary: #5E81F4;
+  --nk-secondary: #1C1D21;
+  --nk-accent: #FF7AC6;
+  --nk-bg: #F5F5FB;
+  --nk-dark: #1C1D21;
+
+  /* UI */
+  --nk-card: #ffffff;
+  --nk-border: #e7e8ee;
+  --nk-muted: #6b7280;
+
+  /* Estados */
+  --nk-success: #10B981;
+  --nk-warning: #F59E0B;
+  --nk-danger: #EF4444;
+
+  /* Tipografía y espaciado */
+  --nk-radius: 14px;
+  --nk-radius-sm: 10px;
+  --nk-shadow-sm: 0 8px 20px rgba(0,0,0,.06);
+  --nk-shadow-md: 0 12px 28px rgba(0,0,0,.08);
+  --nk-shadow-lg: 0 20px 40px rgba(0,0,0,.12);
+
+  /* Colores específicos por rol */
+  --nk-admin-primary: #5E81F4;
+  --nk-padre-primary: #10B981;
+  --nk-psicologo-primary: #00897B; /* Teal Clínico - Profesional y Unisex */
+  
+  /* Variantes de colores primarios */
+  --nk-primary-dark: #4c6ef5;
+  --nk-primary-light: #748ffc;
+}
+
+/* Modo oscuro opt-in */
+.dark {
+  --nk-bg: #0f1115;
+  --nk-card: #171923;
+  --nk-border: #2a2e3d;
+  --nk-dark: #e5e7eb;
+  --nk-muted: #9ca3af;
+}
+
+/* =========================
+   2) BASE
+   ========================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--nk-bg);
+  color: var(--nk-dark);
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Links del navbar */
+.nk-link {
+  color: #374151;
+  font-weight: 500;
+  transition: color .2s ease;
+  text-decoration: none;
+}
+
+.nk-link:hover,
+.nk-link:focus {
+  color: var(--nk-primary);
+}
+
+.nk-link.nk-cta {
+  padding: .45rem .9rem;
+  border-radius: 10px;
+  border: 1px solid var(--nk-border);
+  color: var(--nk-primary);
+  background: #fff;
+}
+
+.nk-link.nk-cta:hover {
+  background: #f8faff;
+  border-color: #dbe0ff;
+}
+
+.nk-link-mobile {
+  display: block;
+  padding: .6rem .25rem;
+  color: #374151;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.nk-link-mobile:hover {
+  background: #f8f8ff;
+  color: var(--nk-primary);
+}
+
+/* Footer links */
+.nk-footer-link {
+  color: #d1d5db;
+  transition: color .2s ease;
+  text-decoration: none;
+}
+
+.nk-footer-link:hover {
+  color: #fff;
+}
+
+/* =========================
+   3) COMPONENTES
+   ========================= */
+
+/* 3.1 Botones */
+.nk-btn-primary,
+.nk-btn-secondary,
+.nk-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  font-weight: 600;
+  line-height: 1;
+  padding: .7rem 1rem;
+  border-radius: 12px;
+  transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+  will-change: transform;
+  border: none;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+
+.nk-btn-primary {
+  background: var(--nk-primary);
+  color: #fff;
+  box-shadow: var(--nk-shadow-sm);
+}
+
+.nk-btn-primary:hover {
+  filter: brightness(.94);
+}
+
+.nk-btn-primary:active {
+  transform: translateY(1px);
+}
+
+.nk-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.nk-btn-secondary {
+  background: #fff;
+  color: var(--nk-secondary);
+  border: 1px solid var(--nk-border);
+}
+
+.nk-btn-secondary:hover {
+  background: #f9fafb;
+}
+
+.nk-btn-secondary:active {
+  transform: translateY(1px);
+}
+
+.nk-btn-ghost {
+  background: transparent;
+  color: var(--nk-primary);
+  border: 1px dashed #cbd5e1;
+}
+
+.nk-btn-ghost:hover {
+  background: #f3f6ff;
+}
+
+/* Botones adicionales robustos para formularios */
+.btn-primary-nk,
+button.nk-btn-primary {
+  background: #2DD4BF !important;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 2px 8px rgba(45, 212, 191, 0.3);
+}
+
+.btn-primary-nk:hover:not(:disabled),
+button.nk-btn-primary:hover:not(:disabled) {
+  background: #26BBA9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(45, 212, 191, 0.4);
+}
+
+.btn-primary-nk:active,
+button.nk-btn-primary:active {
+  transform: translateY(0px);
+}
+
+.btn-primary-nk:disabled,
+button.nk-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary-nk,
+button.nk-btn-secondary {
+  background: #E5E7EB !important;
+  color: #374151 !important;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-secondary-nk:hover:not(:disabled),
+button.nk-btn-secondary:hover:not(:disabled) {
+  background: #D1D5DB !important;
+  transform: translateY(-1px);
+}
+
+/* Input robusto */
+.nk-input,
+input.nk-input,
+textarea.nk-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  background: white !important;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  color: var(--nk-dark);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 15px;
+}
+
+.nk-input:focus,
+input.nk-input:focus,
+textarea.nk-input:focus {
+  outline: none;
+  border-color: #2DD4BF;
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
+}
+
+.nk-input::placeholder,
+input.nk-input::placeholder,
+textarea.nk-input::placeholder {
+  color: #9CA3AF;
+}
+
+/* Card de formulario */
+.nk-card-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #E5E7EB;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 3.2 Tarjetas */
+.nk-card {
+  background: var(--nk-card);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  box-shadow: var(--nk-shadow-sm);
+  padding: 1.5rem;
+}
+
+.card-hover {
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--nk-shadow-md);
+  border-color: #dfe4ff;
+}
+
+/* 3.3 Badges / etiquetas */
+.nk-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem .5rem;
+  font-size: .75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--nk-border);
+  background: #fff;
+  color: #374151;
+  font-weight: 500;
+}
+
+.nk-badge--success {
+  border-color: #b7f3e0;
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.nk-badge--warn {
+  border-color: #fee6bf;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.nk-badge--danger {
+  border-color: #fecaca;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* 3.4 Formularios */
+.nk-input,
+.nk-select,
+.nk-textarea {
+  width: 100%;
+  padding: .7rem .9rem;
+  border-radius: 12px;
+  border: 1px solid var(--nk-border);
+  background: #fff;
+  color: #111827;
+  transition: border-color .2s, box-shadow .2s;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+}
+
+.nk-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.nk-input::placeholder,
+.nk-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.nk-input:focus,
+.nk-select:focus,
+.nk-textarea:focus {
+  outline: none;
+  border-color: #c7d3ff;
+  box-shadow: 0 0 0 3px rgba(94,129,244,.25);
+}
+
+/* 3.5 Toggle / switches simples */
+.nk-switch {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+.nk-switch::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  transition: transform .2s ease;
+}
+
+.nk-switch[aria-checked="true"] {
+  background: var(--nk-primary);
+}
+
+.nk-switch[aria-checked="true"]::after {
+  transform: translateX(20px);
+}
+
+/* 3.6 Modales */
+.nk-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+}
+
+.nk-modal {
+  background: var(--nk-card);
+  border: 1px solid var(--nk-border);
+  border-radius: var(--nk-radius);
+  width: 100%;
+  max-width: 560px;
+  padding: 1.25rem;
+  box-shadow: var(--nk-shadow-md);
+}
+
+.nk-modal-backdrop.is-open {
+  display: flex;
+}
+
+/* 3.7 Tabs */
+.nk-tabs {
+  display: flex;
+  gap: .5rem;
+  background: #fff;
+  border: 1px solid var(--nk-border);
+  border-radius: 12px;
+  padding: .35rem;
+}
+
+.nk-tab {
+  flex: 1;
+  text-align: center;
+  padding: .6rem .8rem;
+  border-radius: 10px;
+  font-weight: 600;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+  border: none;
+  background: transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+}
+
+.nk-tab[aria-selected="true"] {
+  background: #edf2ff;
+  color: #3730a3;
+}
+
+/* 3.8 Tabla */
+.nk-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border: 1px solid var(--nk-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.nk-table thead th {
+  background: #f8fafc;
+  text-align: left;
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #6b7280;
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--nk-border);
+  font-weight: 600;
+}
+
+.nk-table tbody td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--nk-border);
+  color: #374151;
+}
+
+.nk-table tbody tr:hover {
+  background: #fafbff;
+}
+
+.nk-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* 3.9 Tarjetas de recurso */
+.nk-resource-card img {
+  display: block;
+}
+
+.nk-resource-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 3.10 Grillas auxiliares */
+.nk-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .nk-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .nk-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .nk-grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* =========================
+   4) ACCESIBILIDAD
+   ========================= */
+.focus-ring:focus {
+  outline: 3px solid rgba(94,129,244,.5);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* Prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Ratio de contraste forzado */
+@media (forced-colors: active) {
+  .nk-btn-primary {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* =========================
+   5) LAYOUTS / SECCIONES
+   ========================= */
+
+/* Hero */
+.nk-hero-gradient {
+  background: linear-gradient(135deg, var(--nk-primary) 0%, var(--nk-accent) 100%);
+}
+
+/* Sección CTA */
+.nk-cta-section {
+  background: #eef1ff;
+  border: 1px dashed #cfd8ff;
+  border-radius: 16px;
+}
+
+/* =========================
+   6) UTILIDADES
+   ========================= */
+
+/* Limitar ancho de texto */
+.nk-prose {
+  max-width: 70ch;
+}
+
+/* Avatares */
+.nk-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  object-fit: cover;
+}
+
+/* Espaciadores */
+.nk-spacer-1 {
+  height: .25rem;
+}
+
+.nk-spacer-2 {
+  height: .5rem;
+}
+
+.nk-spacer-3 {
+  height: 1rem;
+}
+
+/* Espaciador entre secciones del dashboard */
+.section-spacer {
+  height: 4rem;
+  margin: 2rem 0;
+  border-bottom: 1px solid var(--nk-border);
+  opacity: 0.3;
+}
+
+@media (max-width: 768px) {
+  .section-spacer {
+    height: 2.5rem;
+    margin: 1.5rem 0;
+  }
+}
+
+/* =========================
+   7) ESTADOS / ETIQUETAS
+   ========================= */
+
+/* Estado/etiquetas en listas de citas */
+.badge-status {
+  padding: .2rem .5rem;
+  border-radius: 9999px;
+  font-size: .72rem;
+  font-weight: 600;
+  border: 1px solid var(--nk-border);
+  display: inline-block;
+}
+
+.badge-status--pending {
+  background: #fffbeb;
+  color: #92400e;
+  border-color: #fde68a;
+}
+
+.badge-status--confirmed {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.badge-status--done {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.badge-status--cancel {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+/* Placeholders para paneles */
+.nk-stat {
+  background: #fff;
+  border: 1px solid var(--nk-border);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+}
+
+/* =========================
+   8) OVERRIDES PARA ANGULAR MATERIAL
+   ========================= */
+
+/* Mejorar integración con Material */
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-mdc-card {
+  border-radius: var(--nk-radius) !important;
+  box-shadow: var(--nk-shadow-sm) !important;
+}
+
+.mat-mdc-button,
+.mat-mdc-raised-button {
+  border-radius: 12px !important;
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+/* =========================
+   9) RESPONSIVE HELPERS
+   ========================= */
+
+@media (max-width: 768px) {
+  .nk-card {
+    padding: 1rem;
+  }
+
+  .nk-btn-primary,
+  .nk-btn-secondary {
+    padding: .6rem .8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================
+   10) ANIMACIONES SUAVES
+   ========================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nk-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* =========================
+   11) SNACKBAR ESTILOS
+   ========================= */
+
+::ng-deep .success-snackbar {
+  background-color: var(--nk-success) !important;
+  color: white !important;
+}
+
+::ng-deep .error-snackbar {
+  background-color: var(--nk-danger) !important;
+  color: white !important;
+}
+
+::ng-deep .warning-snackbar {
+  background-color: var(--nk-warning) !important;
+  color: white !important;
+}
+
+/* =========================
+   12) NAVEGACIÓN PRINCIPAL
+   ========================= */
+.nk-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+}
+
+.nk-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.nk-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  color: var(--nk-primary);
+}
+
+.nk-brand img {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+}
+
+.nk-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  transition: max-height 0.3s ease, opacity 0.25s ease;
+}
+
+.nk-nav-toggle {
+  display: none;
+  border: 1px solid var(--nk-border);
+  background: #fff;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--nk-dark);
+}
+
+.nk-nav-links a {
+  font-weight: 500;
+  color: #374151;
+}
+
+.nk-nav-links a:hover {
+  color: var(--nk-primary);
+}
+
+.nk-nav-links .nk-link.nk-cta {
+  border: 1px solid rgba(94, 129, 244, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background: rgba(94, 129, 244, 0.08);
+}
+
+@media (max-width: 960px) {
+  .nk-nav-inner {
+    height: 64px;
+  }
+
+  .nk-nav-toggle {
+    display: inline-flex;
+  }
+
+  .nk-nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #fff;
+    padding: 0;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+  }
+
+  .nk-nav-links.is-open {
+    padding: 1.25rem 1.5rem;
+    max-height: 360px;
+    opacity: 1;
+  }
+
+  .nk-nav-links a {
+    width: 100%;
+    padding: 0.4rem 0;
+  }
+}
+
+/* =========================
+   13) FORMULARIOS DE AUTENTICACIÓN
+   ========================= */
+.nk-form-section {
+  min-height: calc(100vh - 72px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, rgba(94, 129, 244, 0.08), rgba(255, 122, 198, 0.08));
+}
+
+.nk-form-card {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 2.5rem;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: var(--nk-shadow-lg);
+}
+
+.nk-form-eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--nk-muted);
+  font-size: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.nk-form-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--nk-secondary);
+}
+
+.nk-form-subtitle {
+  margin-top: 0.5rem;
+  color: var(--nk-muted);
+  line-height: 1.6;
+}
+
+.nk-form {
+  margin-top: 1.75rem;
+}
+
+.nk-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.nk-input-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--nk-secondary);
+}
+
+.nk-input,
+.nk-select {
+  width: 100%;
+  border: 1px solid var(--nk-border);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nk-input:focus,
+.nk-select:focus {
+  outline: none;
+  border-color: #c7d3ff;
+  box-shadow: 0 0 0 3px rgba(94, 129, 244, 0.2);
+}
+
+.nk-field-error {
+  font-size: 0.78rem;
+  color: var(--nk-danger);
+}
+
+.nk-input-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.nk-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--nk-muted);
+}
+
+.nk-checkbox input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--nk-primary);
+}
+
+.nk-form-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn-primary-nk {
+  border: none;
+  border-radius: 12px;
+  background: var(--nk-primary);
+  color: #fff;
+  padding: 0.95rem 1.25rem;
+  font-weight: 600;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
+  box-shadow: 0 15px 35px rgba(94, 129, 244, 0.25);
+}
+
+.btn-primary-nk:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-primary-nk:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+.nk-form-footer {
+  font-size: 0.95rem;
+  color: var(--nk-muted);
+  text-align: center;
+}
+
+.nk-form-footer a {
+  color: var(--nk-primary);
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .nk-form-card {
+    padding: 2rem;
+  }
+
+  .nk-form-section {
+    padding: 2rem 1rem;
+  }
+
+  .nk-input-inline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =========================
+   DASHBOARD SECTIONS
+   ========================= */
+
+/* Contenedor principal de dashboard */
+.dashboard-container {
+  padding: 2rem 1.5rem;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Card para contenido de dashboard */
+.dashboard-card {
+  background: var(--nk-card);
+  border-radius: 12px;
+  box-shadow: var(--nk-shadow-sm);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--nk-border);
+}
+
+/* Header de sección de dashboard */
+.dashboard-header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-header {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.dashboard-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  margin: 0;
+}
+
+/* Botones de acción en el dashboard */
+.dashboard-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Input de búsqueda/filtro en dashboard */
+.dashboard-filter {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.dashboard-filter input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--nk-border);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.dashboard-filter input:focus {
+  outline: none;
+  border-color: var(--nk-primary);
+  box-shadow: 0 0 0 3px rgba(94, 129, 244, 0.1);
+}
+
+/* Tabla de dashboard */
+.dashboard-table-container {
+  background: var(--nk-card);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--nk-border);
+  box-shadow: var(--nk-shadow-sm);
+}
+
+/* Formularios dentro de dashboard */
+.dashboard-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .dashboard-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dashboard-form .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+.dashboard-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  grid-column: 1 / -1;
+  margin-top: 1rem;
+}
+
+/* Modales - Estilos mejorados */
+.modal-form {
+  padding: 1rem 0;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--nk-border);
+  margin: 0 -1.5rem -1.5rem -1.5rem;
+  background: #fafafa;
+}
+
+/* Fix para mat-select y mat-form-field - Fondo blanco sólido */
+::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+::ng-deep .mat-mdc-select,
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-select-trigger {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-form-field-flex {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-input-element {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-select-value,
+::ng-deep .mat-mdc-select-placeholder {
+  color: var(--nk-dark) !important;
+}
+
+::ng-deep .mat-mdc-form-field-infix {
+  padding: 0.75rem 0 !important;
+}
+
+/* Dropdowns del select con fondo blanco */
+::ng-deep .mat-mdc-select-panel {
+  background-color: white !important;
+  border: 1px solid var(--nk-border);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+::ng-deep .mat-mdc-option {
+  background-color: white !important;
+}
+
+::ng-deep .mat-mdc-option:hover {
+  background-color: #f3f4f6 !important;
+}
+
+::ng-deep .mat-mdc-option.mat-mdc-option-active {
+  background-color: rgba(94, 129, 244, 0.1) !important;
+}
+
+/* Empty state */
+.dashboard-empty {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--nk-muted);
+}
+
+.dashboard-empty mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+/* Stats cards para dashboard */
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--nk-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--nk-border);
+  box-shadow: var(--nk-shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nk-shadow-md);
+}
+
+.stat-card .stat-label {
+  font-size: 0.875rem;
+  color: var(--nk-muted);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.stat-card .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  margin: 0;
+}
+
+/* Utilities para flex */
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.gap-1 {
+  gap: 0.5rem;
+}
+
+.gap-2 {
+  gap: 1rem;
+}
+
+.gap-3 {
+  gap: 1.5rem;
+}
+
+.gap-4 {
+  gap: 2rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 1rem;
+}
+
+.mb-3 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-4 {
+  margin-bottom: 2rem;
+}
+
+/* =========================
+   ANGULAR MATERIAL OVERRIDES - TABLAS Y FORM FIELDS
+   ========================= */
+
+/* FORZAR ANCHO TOTAL EN TODAS LAS TABLAS DE MATERIAL */
+::ng-deep .mat-mdc-table,
+::ng-deep table.mat-table {
+  width: 100% !important;
+  min-width: 100% !important;
+  table-layout: auto !important;
+}
+
+::ng-deep .mat-mdc-table-container,
+::ng-deep .mat-table-container {
+  width: 100% !important;
+  overflow-x: auto !important;
+}
+
+/* Asegurar que las filas ocupen todo el ancho */
+::ng-deep .mat-mdc-row,
+::ng-deep .mat-mdc-header-row,
+::ng-deep .mat-row,
+::ng-deep .mat-header-row {
+  width: 100% !important;
+  min-width: 100% !important;
+}
+
+/* Contenedores de elevación de Material */
+::ng-deep .mat-elevation-z8,
+::ng-deep .mat-elevation-z4,
+::ng-deep .mat-elevation-z2 {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Hover completo en filas de tabla */
+::ng-deep .mat-mdc-row:hover,
+::ng-deep .mat-row:hover {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+  width: 100% !important;
+}
+
+/* Asegurar que las celdas no tengan restricciones de ancho */
+::ng-deep .mat-mdc-cell,
+::ng-deep .mat-mdc-header-cell,
+::ng-deep .mat-cell,
+::ng-deep .mat-header-cell {
+  box-sizing: border-box !important;
+}
+
+/* Fondo blanco para mat-select */
+.mat-mdc-select {
+  background-color: white !important;
+}
+
+.mat-mdc-select-trigger {
+  background-color: white !important;
+}
+
+.mat-mdc-form-field {
+  background-color: white !important;
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: white !important;
+  padding: 0 !important;
+}
+
+.mat-mdc-form-field-infix {
+  background-color: white !important;
+  min-height: 48px;
+}
+
+/* Select dentro de mat-form-field con outline */
+.mat-mdc-form-field-appearance-outline .mat-mdc-text-field-wrapper {
+  background-color: white !important;
+  border-radius: 10px;
+}
+
+.mat-mdc-form-field-appearance-outline .mat-mdc-select-arrow-wrapper {
+  background-color: white !important;
+}
+
+/* Input dentro de mat-form-field */
+.mat-mdc-form-field-appearance-outline .mat-mdc-input-element {
+  background-color: white !important;
+  padding: 12px 14px !important;
+}
+
+/* Panel de opciones del select */
+.mat-mdc-select-panel {
+  background-color: white !important;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  max-height: 300px !important;
+}
+
+.mat-mdc-option {
+  background-color: white !important;
+  padding: 12px 16px !important;
+  min-height: 44px !important;
+}
+
+.mat-mdc-option:hover {
+  background-color: rgba(94, 129, 244, 0.08) !important;
+}
+
+.mat-mdc-option.mdc-list-item--selected {
+  background-color: rgba(94, 129, 244, 0.12) !important;
+}
+
+/* Datepicker input */
+input[type="date"],
+input[type="time"] {
+  background-color: white !important;
+  padding: 12px 14px;
+  border: 1px solid var(--nk-border);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus {
+  outline: none;
+  border-color: var(--nk-primary);
+  box-shadow: 0 0 0 3px rgba(94, 129, 244, 0.1);
+}
+
+/* Dialog content spacing */
+.mat-mdc-dialog-content {
+  padding: 1.5rem !important;
+}
+
+/* Modal form styles */
+.modal-form {
+  margin-top: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem !important;
+  border-top: 1px solid var(--nk-border);
+  margin-top: 1.5rem !important;
+}
+
+.btn-secondary-nk {
+  border: 1px solid var(--nk-border);
+  background: white;
+  color: var(--nk-muted);
+  padding: 0.75rem 1.25rem;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-nk:hover {
+  background: var(--nk-bg);
+  border-color: var(--nk-primary);
+  color: var(--nk-primary);
+}
+
+/* Dialog title */
+.mat-mdc-dialog-title {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: var(--nk-dark) !important;
+  padding: 1.5rem 1.5rem 1rem 1.5rem !important;
+  margin: 0 !important;
+}
+
+/* =========================
+   ADMIN COMPONENTS SHARED STYLES
+   ========================= */
+
+/* Header Container - Consistente en todas las vistas de Admin */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.header-container h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  margin: 0;
+  flex: 1;
+}
+
+/* Botones de acción principal - Modernos */
+.header-container button {
+  display: inline-flex !important;
+  width: auto !important;
+  min-width: 150px !important;
+  padding: 10px 24px !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  justify-content: center !important;
+}
+
+/* Filtro de búsqueda compartido */
+.dashboard-filter {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive para header de admin */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .header-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .header-container button {
+    align-self: flex-start;
+    min-width: 140px !important;
+  }
+}
+
+/* =========================
+   ANGULAR MATERIAL DATEPICKER - ESTILOS ESPECÍFICOS
+   ========================= */
+
+/* Panel del calendario (datepicker popup) */
+::ng-deep .mat-datepicker-popup {
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .mat-calendar {
+  width: 100% !important;
+  max-width: 320px !important;
+  background: white !important;
+  border-radius: 12px !important;
+}
+
+/* Header del calendario (mes/año) */
+::ng-deep .mat-calendar-header {
+  background: white !important;
+  padding: 16px !important;
+  border-bottom: 1px solid var(--nk-border) !important;
+}
+
+::ng-deep .mat-calendar-period-button {
+  color: var(--nk-dark) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+}
+
+/* Navegación del calendario (flechas) */
+::ng-deep .mat-calendar-previous-button,
+::ng-deep .mat-calendar-next-button {
+  color: var(--nk-primary) !important;
+}
+
+/* Días de la semana (L, M, M, J, V, S, D) */
+::ng-deep .mat-calendar-table-header {
+  background: #f8fafc !important;
+  color: var(--nk-muted) !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+}
+
+::ng-deep .mat-calendar-table-header th {
+  padding: 12px 0 !important;
+  border-bottom: 1px solid var(--nk-border) !important;
+}
+
+/* Celdas de días */
+::ng-deep .mat-calendar-body-cell {
+  padding: 4px !important;
+}
+
+::ng-deep .mat-calendar-body-cell-content {
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  border-radius: 8px !important;
+  font-size: 0.875rem !important;
+  color: var(--nk-dark) !important;
+  transition: all 0.2s ease !important;
+}
+
+/* Día seleccionado */
+::ng-deep .mat-calendar-body-selected {
+  background-color: var(--nk-primary) !important;
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+/* Día hover */
+::ng-deep .mat-calendar-body-cell:hover .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: rgba(94, 129, 244, 0.1) !important;
+  color: var(--nk-primary) !important;
+}
+
+/* Días deshabilitados (fechas pasadas) */
+::ng-deep .mat-calendar-body-disabled .mat-calendar-body-cell-content {
+  color: #d1d5db !important;
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+}
+
+/* Día de hoy */
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  border: 2px solid var(--nk-primary) !important;
+  background-color: transparent !important;
+}
+
+/* Botón toggle del datepicker */
+::ng-deep .mat-datepicker-toggle {
+  color: var(--nk-primary) !important;
+}
+
+::ng-deep .mat-datepicker-toggle .mat-icon-button {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+::ng-deep .mat-datepicker-toggle .mat-icon {
+  font-size: 24px !important;
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Input del datepicker */
+::ng-deep .mat-datepicker-input {
+  background: white !important;
+  color: var(--nk-dark) !important;
+}
+
+/* Overlay del datepicker */
+::ng-deep .cdk-overlay-pane .mat-datepicker-popup {
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  overflow: hidden !important;
+  z-index: 1000 !important;
+}
+
+/* Asegurar que el calendario tenga el tamaño correcto */
+::ng-deep .mat-datepicker-content {
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Navegación de mes/año */
+::ng-deep .mat-calendar-arrow {
+  border-top-color: var(--nk-primary) !important;
+}
+
+/* Año/mes en el selector */
+::ng-deep .mat-calendar-body-label {
+  color: var(--nk-muted) !important;
+  font-weight: 600 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  padding: 8px 0 !important;
+}

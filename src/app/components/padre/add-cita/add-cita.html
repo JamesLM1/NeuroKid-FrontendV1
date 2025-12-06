@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="addCitaForm" class="dashboard-form modal-form">
+
+    <div class="full-width">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Seleccionar Hijo</mat-label>
+        <mat-select formControlName="menorId" required>
+          <mat-option *ngIf="misMenores.length === 0" disabled>No tienes hijos registrados</mat-option>
+          <mat-option *ngFor="let menor of misMenores" [value]="menor.menorId">
+            {{menor.nombre}} {{menor.apellido}} 
+            <span *ngIf="menor.edad">({{menor.edad}} años)</span>
+          </mat-option>
+        </mat-select>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="full-width">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Seleccionar Psicólogo</mat-label>
+        <mat-select formControlName="psicologoId" required>
+          <mat-option *ngIf="psicologosDisponibles.length === 0" disabled>Cargando psicólogos...</mat-option>
+          <mat-option *ngFor="let psicologo of psicologosDisponibles" [value]="psicologo.psicologoId">
+            Dr. {{psicologo.nombre}} {{psicologo.apellido}} - {{psicologo.especialidad}}
+          </mat-option>
+        </mat-select>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="full-width">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Fecha de la cita</mat-label>
+        <input matInput 
+               [matDatepicker]="picker" 
+               [min]="minDate" 
+               formControlName="fecha" 
+               (dateChange)="onFechaChange($event)"
+               readonly>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="full-width">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Horario Disponible</mat-label>
+        <mat-select formControlName="horarioSeleccionado" required>
+          <!-- Estado de carga -->
+          <mat-option *ngIf="cargandoHorarios" disabled>
+            <mat-icon>refresh</mat-icon> Cargando horarios...
+          </mat-option>
+          
+          <!-- Sin seleccionar psicólogo o fecha -->
+          <mat-option *ngIf="!cargandoHorarios && !sinDisponibilidad && horariosDisponibles.length === 0 && (!addCitaForm.get('psicologoId')?.value || !addCitaForm.get('fecha')?.value)" disabled>
+            Selecciona psicólogo y fecha primero
+          </mat-option>
+          
+          <!-- Sin horarios disponibles -->
+          <mat-option *ngIf="sinDisponibilidad" disabled>
+            No hay horarios disponibles para esta fecha
+          </mat-option>
+          
+          <!-- Horarios disponibles -->
+          <mat-option *ngFor="let horario of horariosDisponibles" [value]="horario">
+            {{horario}} - {{getHoraFin(horario)}} (1 hora)
+          </mat-option>
+        </mat-select>
+        <mat-hint *ngIf="disponibilidadInfo && !sinDisponibilidad">
+          {{disponibilidadInfo.slotsDisponibles}} de {{disponibilidadInfo.totalSlots}} horarios disponibles
+        </mat-hint>
+        <mat-error *ngIf="!sinDisponibilidad">Selecciona un horario</mat-error>
+        <mat-error *ngIf="sinDisponibilidad && addCitaForm.get('horarioSeleccionado')?.touched">
+          No hay horarios disponibles para esta fecha
+        </mat-error>
+      </mat-form-field>
+      
+      <div *ngIf="sinDisponibilidad" class="error-message-container">
+        <mat-icon>warning</mat-icon>
+        <span>El psicólogo no tiene horarios disponibles para esta fecha. Intenta con otra fecha o selecciona otro psicólogo.</span>
+      </div>
+    </div>
+
+    <div class="full-width">
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Motivo de la cita</mat-label>
+        <input matInput formControlName="motivo" required>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="modal-actions">
+  <button mat-button class="btn-secondary-nk" (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" class="btn-primary-nk" (click)="Grabar()" [disabled]="addCitaForm.invalid">
+    <mat-icon>calendar_today</mat-icon> Solicitar
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,110 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="addEditForm" class="simple-form-column">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" required>
+      <mat-error *ngIf="addEditForm.get('nombre')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido" required>
+      <mat-error *ngIf="addEditForm.get('apellido')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <!-- Selector de Tipo de Documento y Número -->
+    <div class="doc-container" style="display: flex; gap: 10px; width: 100%;">
+      <mat-form-field appearance="outline" style="width: 40%;">
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="tipoDocumento">
+          <mat-option *ngFor="let tipo of tiposDocumento" [value]="tipo">{{tipo}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline" style="width: 60%;">
+        <mat-label>Número de Documento</mat-label>
+        <input matInput formControlName="dni">
+        <mat-error *ngIf="addEditForm.get('dni')?.hasError('required')">Requerido</mat-error>
+        <mat-error *ngIf="addEditForm.get('dni')?.hasError('pattern')">DNI debe tener 8 dígitos</mat-error>
+        <mat-error *ngIf="addEditForm.get('dni')?.hasError('minlength')">Mínimo 3 caracteres</mat-error>
+        <mat-error *ngIf="addEditForm.get('dni')?.hasError('maxlength')">Máximo 15 caracteres</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Selector de Usuario y Dominio de Email -->
+    <div class="email-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="email" placeholder="usuario" required>
+        <mat-error *ngIf="addEditForm.get('email')?.hasError('required')">Requerido</mat-error>
+        <mat-error *ngIf="addEditForm.get('email')?.hasError('pattern')">Ingrese solo el usuario (sin @)</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dominio</mat-label>
+        <mat-select formControlName="dominioEmail" required>
+          <mat-option *ngFor="let dominio of dominios" [value]="dominio">{{dominio}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="addEditForm.get('dominioEmail')?.hasError('required')">Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Selector de Prefijo y Teléfono -->
+    <div class="phone-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Prefijo</mat-label>
+        <mat-select formControlName="prefijo" required>
+          <mat-option *ngFor="let pais of paises" [value]="pais.codigo">
+            {{ pais.bandera }} {{ pais.codigo }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="telefono" type="tel" required>
+        <mat-error *ngIf="addEditForm.get('telefono')?.hasError('required')">Requerido</mat-error>
+        <mat-error *ngIf="addEditForm.get('telefono')?.hasError('pattern')">Solo números</mat-error>
+        <mat-error *ngIf="addEditForm.get('telefono')?.hasError('minlength') || addEditForm.get('telefono')?.hasError('maxlength')">
+          Debe tener {{ digitosRequeridos }} dígitos
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo de Parentesco</mat-label>
+      <mat-select formControlName="tipoParentesco" required>
+        <mat-option value="Padre">Padre</mat-option>
+        <mat-option value="Madre">Madre</mat-option>
+        <mat-option value="Tutor">Tutor</mat-option>
+      </mat-select>
+      <mat-error *ngIf="addEditForm.get('tipoParentesco')?.hasError('required')">Requerido</mat-error>
+    </mat-form-field>
+
+    <!-- Generador de Contraseña -->
+    <div class="password-container" style="display: flex; gap: 10px; align-items: center; width: 100%;">
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Contraseña de Acceso</mat-label>
+        <input matInput formControlName="claveVisible" readonly required>
+        <mat-icon matSuffix (click)="generarClave()" style="cursor: pointer; color: var(--nk-primary);" matTooltip="Generar nueva contraseña">autorenew</mat-icon>
+        <mat-error *ngIf="addEditForm.get('claveVisible')?.hasError('required')">Requerido</mat-error>
+      </mat-form-field>
+      <button mat-stroked-button type="button" (click)="generarClave()" color="primary" matTooltip="Generar nueva contraseña">
+        <mat-icon>refresh</mat-icon> Generar
+      </button>
+    </div>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close color="warn" class="cancel-btn">
+    <mat-icon>close</mat-icon> Cancelar
+  </button>
+  <button mat-flat-button color="primary" (click)="Grabar()" [disabled]="addEditForm.invalid" class="save-btn">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>

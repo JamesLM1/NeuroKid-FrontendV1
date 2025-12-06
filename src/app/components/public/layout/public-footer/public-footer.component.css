@@ -1,0 +1,79 @@
+.nk-footer {
+  background: #0b1120;
+  color: #e2e8f0;
+}
+
+.nk-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.nk-footer h4 {
+  font-size: 1.05rem;
+  margin-bottom: 1.2rem;
+  color: #fff;
+}
+
+.nk-footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.nk-footer a {
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.nk-footer a:hover {
+  color: var(--nk-primary);
+}
+
+.nk-footer-brand p {
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-top: 0.75rem;
+}
+
+.nk-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.nk-footer-logo img {
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+}
+
+.nk-footer-contact li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #cbd5f5;
+}
+
+.nk-footer-contact mat-icon {
+  font-size: 1.1rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--nk-primary);
+}
+
+.nk-footer-bottom {
+  border-top: 1px solid rgba(148, 163, 184, 0.2);
+  text-align: center;
+  padding: 1.5rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,82 @@
+.evaluacion-container {
+  padding: 1rem;
+}
+
+.header-section {
+  margin-bottom: 2rem;
+}
+
+.header-section h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.evaluacion-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.nk-table {
+  width: 100%;
+}
+
+.w-full {
+  width: 100% !important;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  color: #94a3b8;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  height: 48px;
+  width: 48px;
+  margin-bottom: 1rem;
+}
+
+.stars-container {
+  display: flex;
+  align-items: center;
+}
+
+.star-icon {
+  color: #fbbf24; /* Amber 400 */
+  font-size: 20px;
+  height: 20px;
+  width: 20px;
+}
+
+.comment-cell {
+  max-width: 400px;
+  white-space: normal;
+  line-height: 1.5;
+  color: #475569;
+}
+
+/* Table Header Styling */
+th.mat-header-cell {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 1rem;
+}
+
+td.mat-cell {
+  padding: 1rem;
+  border-bottom-color: #e2e8f0;
+}

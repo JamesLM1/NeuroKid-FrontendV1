@@ -1,0 +1,14 @@
+/* Estilos específicos del componente raíz App */
+
+/* Asegurar que el body tenga el fondo correcto */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Contenedor principal de la app */
+app-root {
+  display: block;
+  min-height: 100vh;
+}

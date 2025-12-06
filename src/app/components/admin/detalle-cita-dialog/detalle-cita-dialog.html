@@ -1,0 +1,98 @@
+<h2 mat-dialog-title>Detalle de Cita</h2>
+
+<mat-dialog-content>
+  <!-- Header: Resumen de la Cita -->
+  <div class="cita-summary">
+    <div class="summary-header">
+      <div class="summary-item">
+        <mat-icon>event</mat-icon>
+        <div>
+          <span class="label">Fecha</span>
+          <span class="value">{{ getFecha() | date: 'dd/MM/yyyy':'UTC' }}</span>
+        </div>
+      </div>
+
+      <div class="summary-item">
+        <mat-chip [ngClass]="getEstadoClass()">
+          {{ getEstado() }}
+        </mat-chip>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Sección: Participantes -->
+  <div class="participantes-section">
+    <h3 class="section-title">
+      <mat-icon>people</mat-icon>
+      Participantes
+    </h3>
+
+    <div class="participante-item">
+      <mat-icon class="participante-icon">psychology</mat-icon>
+      <div class="participante-info">
+        <span class="participante-label">Psicólogo</span>
+        <span class="participante-value">{{ getNombrePsicologo() }}</span>
+      </div>
+    </div>
+
+    <div class="participante-item">
+      <mat-icon class="participante-icon">face</mat-icon>
+      <div class="participante-info">
+        <span class="participante-label">Paciente (Menor)</span>
+        <span class="participante-value">{{ getNombreMenor() }}</span>
+      </div>
+    </div>
+
+    <div class="participante-item">
+      <mat-icon class="participante-icon">person</mat-icon>
+      <div class="participante-info">
+        <span class="participante-label">Padre/Apoderado</span>
+        <span class="participante-value">{{ getNombrePadre() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Sección: Motivo -->
+  <div class="motivo-section">
+    <h3 class="section-title">
+      <mat-icon>description</mat-icon>
+      Motivo de la Cita
+    </h3>
+
+    <div class="motivo-box">
+      {{ getMotivo() }}
+    </div>
+  </div>
+
+  <!-- Sección: Notas Clínicas (SOAP) -->
+  <div class="clinical-section-container">
+    <h3 class="clinical-header">Notas Clínicas y Hallazgos</h3>
+
+    <div class="clinical-section" *ngIf="cita.observaciones">
+      <label>Observaciones de la Sesión:</label>
+      <p>{{ cita.observaciones }}</p>
+    </div>
+
+    <div class="clinical-section" *ngIf="cita.diagnostico">
+      <label>Análisis / Diagnóstico:</label>
+      <p>{{ cita.diagnostico }}</p>
+    </div>
+
+    <div class="clinical-section" *ngIf="cita.planTratamiento">
+      <label>Plan / Recomendaciones:</label>
+      <p>{{ cita.planTratamiento }}</p>
+    </div>
+
+    <div *ngIf="!cita.observaciones && !cita.diagnostico && !cita.planTratamiento" class="empty-state">
+      <p>No se registraron notas detalladas para esta sesión.</p>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cerrar</button>
+</mat-dialog-actions>

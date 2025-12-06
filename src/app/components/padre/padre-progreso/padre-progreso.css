@@ -1,0 +1,13 @@
+/* Estilos para texto truncado en tablas */
+.truncate-text {
+  display: inline-block;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Asegurar ancho completo de la tabla */
+.nk-table.w-full {
+  width: 100%;
+}

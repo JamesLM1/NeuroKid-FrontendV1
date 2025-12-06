@@ -1,0 +1,134 @@
+<h2 class="text-2xl font-bold">Gestión de Citas</h2>
+<br>
+
+<h3 class="text-xl font-semibold mt-4 mb-2">Próximas Citas (Pendientes y Confirmadas)</h3>
+<div class="nk-card p-0 overflow-hidden">
+  <table mat-table [dataSource]="dsProximas" class="nk-table">
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let c"> {{c.fechaHoraCita | date: 'dd/MM/yyyy':'UTC'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hora">
+      <th mat-header-cell *matHeaderCellDef> Hora </th>
+      <td mat-cell *matCellDef="let c"> {{c.horaInicio}} - {{c.horaFin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menor">
+      <th mat-header-cell *matHeaderCellDef> Menor </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombreCompletoMenor}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="padre">
+      <th mat-header-cell *matHeaderCellDef> Padre/Apoderado </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombreCompletoPadre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef> Motivo </th>
+      <td mat-cell *matCellDef="let c"> {{c.motivoCita}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let c">
+        <span class="badge-status" [class.badge-status--pending]="c.estado === 'Pendiente'"
+          [class.badge-status--done]="c.estado === 'Confirmada'">
+          {{c.estado}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let c">
+        <!-- CASO A: Cita PENDIENTE - Mostrar botones Aceptar/Rechazar -->
+        <div *ngIf="c.estado === 'Pendiente'" class="action-buttons flex gap-2 items-center">
+          <button mat-mini-fab color="primary" (click)="aceptarCita(c)" matTooltip="Aceptar y confirmar la cita">
+            <mat-icon>check</mat-icon>
+          </button>
+          <button mat-mini-fab color="warn" (click)="rechazarCita(c)" matTooltip="Rechazar la solicitud de cita">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+
+        <!-- CASO B: Cita CONFIRMADA o PROGRAMADA - Mostrar botón Atender -->
+        <div *ngIf="c.estado === 'Confirmada' || c.estado === 'Programada'">
+          <button mat-flat-button color="accent" (click)="openAtenderDialog(c)" [disabled]="esFuturo(c.fechaHoraCita)"
+            [matTooltip]="esFuturo(c.fechaHoraCita) ? 'Solo se pueden atender citas del día actual o pasadas' : 'Atender cita y registrar hallazgos clínicos'">
+            <mat-icon>medical_services</mat-icon> Atender
+          </button>
+          <span *ngIf="esFuturo(c.fechaHoraCita)" class="text-xs text-gray-500 block mt-1">
+            (Aún no es fecha)
+          </span>
+        </div>
+
+        <!-- CASO C: Otros estados - Sin acciones disponibles -->
+        <span *ngIf="c.estado !== 'Pendiente' && c.estado !== 'Confirmada' && c.estado !== 'Programada'"
+          class="text-gray-400 text-sm">
+          Sin acciones disponibles
+        </span>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [colSpan]="displayedColumns.length">No tiene próximas citas.</td>
+    </tr>
+  </table>
+</div>
+
+<h3 class="text-xl font-semibold mt-8 mb-2">Historial de Citas (Finalizadas, Rechazadas, etc.)</h3>
+<div class="nk-card p-0 overflow-hidden">
+  <table mat-table [dataSource]="dsHistorial" class="nk-table">
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let c"> {{c.fechaHoraCita | date: 'dd/MM/yyyy':'UTC'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hora">
+      <th mat-header-cell *matHeaderCellDef> Hora </th>
+      <td mat-cell *matCellDef="let c"> {{c.horaInicio}} - {{c.horaFin}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menor">
+      <th mat-header-cell *matHeaderCellDef> Menor </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombreCompletoMenor}} </td>
+    </ng-container>
+    <ng-container matColumnDef="padre">
+      <th mat-header-cell *matHeaderCellDef> Padre </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombreCompletoPadre}} </td>
+    </ng-container>
+    <ng-container matColumnDef="motivo">
+      <th mat-header-cell *matHeaderCellDef> Motivo </th>
+      <td mat-cell *matCellDef="let c"> {{c.motivoCita}} </td>
+    </ng-container>
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let c">
+        <span class="badge-status" [class.badge-status--done]="c.estado === 'Finalizada'"
+          [class.badge-status--cancel]="c.estado === 'Cancelada' || c.estado === 'Rechazada'">
+          {{c.estado}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let c">
+        <button mat-icon-button color="primary" (click)="openDetailsDialog(c)" matTooltip="Ver Hallazgos"
+          *ngIf="c.estado === 'Finalizada'">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [colSpan]="displayedColumns.length">No hay citas en el historial.</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="addEditForm" class="modal-form">
+
+    <!-- Fila 1: Nombre y Apellido -->
+    <div class="two-col-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" required>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido" required>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Fila 2: Fecha y Grado -->
+    <div class="two-col-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha de Nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="fechaNacimiento"
+          (dateChange)="onFechaNacimientoChange($event)" readonly>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Grado Escolar</mat-label>
+        <mat-select formControlName="gradoEscolar">
+          <mat-option *ngFor="let grado of gradosEscolares" [value]="grado">{{grado}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- Fila 3: Motivo (Ancho completo) -->
+    <mat-form-field appearance="outline">
+      <mat-label>Motivo de Registro / Observaciones</mat-label>
+      <textarea matInput formControlName="motivoConsulta" rows="3"></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions class="modal-actions">
+  <button mat-button class="btn-secondary-nk" (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" class="btn-primary-nk" (click)="Grabar()" [disabled]="addEditForm.invalid">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>

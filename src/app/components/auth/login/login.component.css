@@ -1,0 +1,44 @@
+/* Estilos para el campo de contraseña con botón de mostrar/ocultar */
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .nk-input {
+  padding-right: 45px; /* Espacio para el botón */
+  width: 100%;
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  transition: color 0.2s ease;
+  outline: none;
+}
+
+.password-toggle-btn:hover {
+  color: #333;
+}
+
+.password-toggle-btn:focus {
+  color: #333;
+  outline: 2px solid rgba(0, 0, 0, 0.1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.password-toggle-btn .material-icons {
+  font-size: 20px;
+  user-select: none;
+}

@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+<mat-dialog-content>
+  <div class="mb-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
+    <div class="flex items-start">
+      <mat-icon class="text-blue-600 mr-2" style="font-size: 20px; width: 20px; height: 20px;">info</mat-icon>
+      <p class="text-sm text-blue-800 m-0">
+        <strong>Nota:</strong> El sistema dividirá este bloque en citas de 1 hora automáticamente. 
+        Por ejemplo, si configuras de 08:00 a 13:00, se crearán slots disponibles a las 08:00, 09:00, 10:00, 11:00 y 12:00.
+      </p>
+    </div>
+  </div>
+  <form [formGroup]="addEditForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+        <mat-form-field appearance="outline" class="md:col-span-1">
+      <mat-label>Día</mat-label>
+      <mat-select formControlName="diaSemana" required>
+        <mat-option *ngFor="let dia of diasSemana" [value]="dia">{{ dia }}</mat-option>
+      </mat-select>
+      <mat-error>Requerido</mat-error>
+    </mat-form-field>
+
+        <mat-form-field appearance="outline" class="md:col-span-1">
+      <mat-label>Hora Inicio</mat-label>
+      <mat-select formControlName="horaInicio" required>
+        <mat-option *ngFor="let h of horarios" [value]="h">{{ h }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="addEditForm.get('horaInicio')?.hasError('required') && addEditForm.get('horaInicio')?.touched">
+        Requerido
+      </mat-error>
+    </mat-form-field>
+    
+        <mat-form-field appearance="outline" class="md:col-span-1">
+      <mat-label>Hora Fin</mat-label>
+      <mat-select formControlName="horaFin" required>
+        <mat-option *ngFor="let h of horarios" [value]="h">{{ h }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="addEditForm.get('horaFin')?.hasError('required') && addEditForm.get('horaFin')?.touched">
+        Requerido
+      </mat-error>
+      <mat-error *ngIf="(addEditForm.get('horaFin')?.hasError('horarioInvalido') || tieneErrorHorario()) && addEditForm.get('horaFin')?.touched">
+        La hora de fin debe ser al menos 1 hora posterior a la hora de inicio
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="Grabar()" [disabled]="addEditForm.invalid">
+    <mat-icon>save</mat-icon> Guardar
+  </button>
+</mat-dialog-actions>

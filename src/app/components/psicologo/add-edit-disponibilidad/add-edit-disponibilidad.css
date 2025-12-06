@@ -1,0 +1,126 @@
+/* ==========================================================================
+   Formularios Add/Edit - Estilos Mejorados
+   Aplicable a todos los formularios de creación/edición
+   ========================================================================== */
+
+:host {
+  display: block;
+}
+
+/* Contenedor del formulario */
+form {
+  padding: 1rem 0;
+}
+
+/* Mejoras para Angular Material Form Fields */
+mat-form-field {
+  width: 100%;
+}
+
+mat-form-field.mat-mdc-form-field {
+  margin-bottom: 0.5rem;
+}
+
+/* Mejora visual de los campos */
+::ng-deep .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+  border-radius: 12px;
+  border-color: var(--nk-border);
+}
+
+::ng-deep .mat-mdc-form-field-appearance-outline.mat-focused .mat-mdc-form-field-outline-thick {
+  border-color: var(--nk-psicologo-primary);
+  border-width: 2px;
+}
+
+/* Labels mejorados */
+::ng-deep .mat-mdc-form-field-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+/* Inputs mejorados */
+::ng-deep .mat-mdc-input-element {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+}
+
+/* Botones de acción del formulario */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--nk-border);
+}
+
+.form-actions button {
+  min-width: 120px;
+}
+
+/* Grid responsivo */
+.grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 768px) {
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Col-span utilities */
+.col-span-1 {
+  grid-column: span 1;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+/* Errores mejorados */
+mat-error {
+  font-size: 0.75rem;
+  color: var(--nk-danger);
+  font-weight: 500;
+}
+
+/* Dialog mejorado */
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: var(--nk-radius) !important;
+  padding: 1.5rem !important;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--nk-dark);
+  margin-bottom: 1rem;
+}
+
+::ng-deep .mat-mdc-dialog-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Animaciones suaves */
+mat-form-field {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

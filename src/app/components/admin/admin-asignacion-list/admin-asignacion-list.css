@@ -1,0 +1,286 @@
+/* ==========================================================================
+   Admin Asignación List - Estilos específicos
+   ========================================================================== */
+
+/* Contenedor principal */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Header container - ya definido globalmente, pero reforzamos aquí */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.header-container h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  margin: 0;
+  flex: 1;
+}
+
+/* Botón "Nueva Asignación" - Estilo sólido y profesional */
+.header-container button[mat-flat-button] {
+  background-color: var(--nk-primary) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 10px 24px !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  min-width: 150px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+.header-container button[mat-flat-button]:hover {
+  background-color: var(--nk-primary-dark) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+.header-container button[mat-flat-button] mat-icon {
+  margin-right: 8px !important;
+  font-size: 1.1rem !important;
+}
+
+/* Filtro de búsqueda */
+.dashboard-filter {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-row mat-form-field {
+  flex: 1;
+  min-width: 250px;
+}
+
+.historial-toggle {
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+/* Tabla y acciones */
+.nk-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--nk-border);
+}
+
+/* RESET DE TABLA */
+table {
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+/* ANCHOS DE COLUMNA - OPTIMIZADOS (Suma 100%) */
+.mat-column-padre { width: 18%; text-align: center; }
+.mat-column-menor { width: 18%; text-align: center; }
+.mat-column-psicologo { width: 18%; text-align: center; }
+.mat-column-fechaAsignacion { width: 12%; text-align: center; }
+.mat-column-actions { 
+  width: 22% !important; 
+  text-align: center !important; 
+  overflow: visible !important; /* IMPORTANTE: Permitir ver el contenido */
+  max-width: 22% !important;
+}
+
+/* OPTIMIZACIÓN DE TEXTO */
+.mat-mdc-header-cell {
+  font-size: 12px !important;
+  padding: 0 4px !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
+  overflow: visible !important;
+}
+
+td.mat-cell {
+  font-size: 13px !important;
+  padding: 0 4px !important;
+}
+
+/* ALINEACIÓN DE COLUMNAS CENTRADAS */
+.mat-column-padre,
+.mat-column-menor,
+.mat-column-psicologo,
+.mat-column-fechaAsignacion,
+.mat-column-estado,
+.mat-column-actions {
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-padre .mat-sort-header-container,
+.mat-column-menor .mat-sort-header-container,
+.mat-column-psicologo .mat-sort-header-container,
+.mat-column-fechaAsignacion .mat-sort-header-container,
+.mat-column-estado .mat-sort-header-container,
+.mat-column-actions .mat-sort-header-container {
+  justify-content: center;
+}
+
+/* Asegurar que las celdas no desborden */
+td.mat-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Excepción: columna de acciones debe permitir overflow */
+td.mat-column-actions {
+  overflow: visible !important;
+}
+
+/* Celdas de texto centradas */
+td.mat-column-padre,
+td.mat-column-menor,
+td.mat-column-psicologo,
+td.mat-column-fechaAsignacion {
+  text-align: center !important;
+  vertical-align: middle !important;
+}
+
+/* Badges de estado - Centrado perfecto */
+.nk-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 4px !important;
+  padding: 4px 12px !important;
+  border-radius: 16px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.2s ease !important;
+}
+
+/* ==========================================================================
+   CELDA DE ESTADO - CENTRADO PERFECTO
+   ========================================================================== */
+
+/* Columna y Encabezado de Estado */
+.mat-column-estado, 
+th.mat-column-estado {
+  width: 12% !important;
+  text-align: center !important;
+}
+
+/* Celda de estado - Estado normal */
+td.mat-column-estado {
+  padding: 0 !important;
+  vertical-align: middle !important;
+}
+
+/* Wrapper para centrar el badge */
+.status-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* El badge ya no necesita márgenes */
+.nk-badge {
+  margin: 0 !important;
+}
+
+.nk-badge--success {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.nk-badge--warn {
+  background-color: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.nk-badge--danger {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+.nk-badge--gray {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  border: 1px solid #e5e7eb;
+}
+
+/* ==========================================================================
+   BOTONES DE ACCIÓN - VISIBILIDAD Y ALINEACIÓN
+   ========================================================================== */
+
+/* Asegura que la celda permita ver el contenido */
+.mat-column-actions {
+  overflow: visible !important;
+}
+
+td.mat-column-actions {
+  overflow: visible !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  padding: 8px 4px !important;
+}
+
+/* Contenedor de botones - Flex para alinear correctamente */
+.actions-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Botones visibles */
+.actions-wrapper button[mat-icon-button] {
+  display: inline-flex !important; /* Asegura que se rendericen */
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important; /* Evitar que se compriman */
+}
+
+.actions-wrapper button[mat-icon-button]:hover {
+  transform: scale(1.05) !important;
+  opacity: 1 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .header-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .header-container button[mat-flat-button] {
+    align-self: flex-start;
+    min-width: 140px !important;
+  }
+}

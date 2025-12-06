@@ -1,0 +1,192 @@
+<div class="dashboard-layout">
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-header">
+      <a routerLink="/" class="brand-link">
+        <img src="assets/images/logo.png" alt="Logo" class="brand-logo" />
+        <span class="brand-name">NeuroKid</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nk-tabs" role="tablist">
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'dashboard'" (click)="selectTab('dashboard')">
+          <mat-icon>dashboard</mat-icon> <span>Inicio</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'disponibilidad'"
+          (click)="selectTab('disponibilidad')">
+          <mat-icon>watch_later</mat-icon> <span>Disponibilidad</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'asignaciones'" (click)="selectTab('asignaciones')">
+          <mat-icon>groups</mat-icon> <span>Asignaciones</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'citas'" (click)="selectTab('citas')">
+          <mat-icon>calendar_today</mat-icon> <span>Citas</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'informes'" (click)="selectTab('informes')">
+          <mat-icon>article</mat-icon> <span>Informes</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'evaluaciones'" (click)="selectTab('evaluaciones')">
+          <mat-icon>reviews</mat-icon> <span>Evaluaciones</span>
+        </button>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button mat-button class="logout-btn" routerLink="/">
+        <mat-icon>logout</mat-icon>
+        <span>Salir</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <main class="main-content">
+
+      <!-- DASHBOARD PRINCIPAL -->
+      <div *ngIf="activeTab === 'dashboard'">
+        <div class="welcome-section">
+          <h1>¡Bienvenido, Psicólogo!</h1>
+          <p>Gestiona tu agenda, pacientes y revisa tu desempeño profesional.</p>
+        </div>
+
+        <!-- Tarjetas del Dashboard -->
+        <div class="dashboard-cards-grid">
+
+          <!-- TARJETA 1: Agenda de Hoy -->
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="card-icon">event</mat-icon>
+                Agenda de Hoy
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div *ngIf="citasHoy.length === 0" class="empty-state">
+                <mat-icon>event_busy</mat-icon>
+                <p>No tienes citas programadas para hoy</p>
+              </div>
+              <table mat-table [dataSource]="citasHoy" *ngIf="citasHoy.length > 0" class="dashboard-table">
+                <ng-container matColumnDef="hora">
+                  <th mat-header-cell *matHeaderCellDef> Hora </th>
+                  <td mat-cell *matCellDef="let cita"> {{formatHora(cita.fechaHoraCita)}} </td>
+                </ng-container>
+                <ng-container matColumnDef="paciente">
+                  <th mat-header-cell *matHeaderCellDef> Paciente </th>
+                  <td mat-cell *matCellDef="let cita"> {{cita.nombreCompletoMenor}} </td>
+                </ng-container>
+                <ng-container matColumnDef="motivo">
+                  <th mat-header-cell *matHeaderCellDef> Motivo </th>
+                  <td mat-cell *matCellDef="let cita"> {{cita.motivoCita || 'Sin motivo'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                  <th mat-header-cell *matHeaderCellDef> Estado </th>
+                  <td mat-cell *matCellDef="let cita">
+                    <span class="status-badge" [ngClass]="cita.estado.toLowerCase()">
+                      {{cita.estado}}
+                    </span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="accion">
+                  <th mat-header-cell *matHeaderCellDef> Acción </th>
+                  <td mat-cell *matCellDef="let cita" class="action-cell">
+                    <button mat-icon-button color="primary" (click)="atenderCita(cita)"
+                      *ngIf="cita.estado === 'Confirmada'" matTooltip="Atender Cita">
+                      <mat-icon>play_circle</mat-icon>
+                    </button>
+                    <button mat-icon-button color="accent" (click)="verDetalleCita(cita)" matTooltip="Ver Detalle">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumnsCitas"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumnsCitas;"></tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- TARJETA 2: Mis Pacientes Asignados -->
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="card-icon">people</mat-icon>
+                Mis Pacientes Asignados
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div *ngIf="pacientesAsignados.length === 0" class="empty-state">
+                <mat-icon>person_off</mat-icon>
+                <p>No tienes pacientes asignados</p>
+              </div>
+              <mat-list *ngIf="pacientesAsignados.length > 0" class="patients-list">
+                <mat-list-item *ngFor="let paciente of pacientesAsignados" class="patient-item">
+                  <mat-icon matListItemAvatar class="patient-avatar">account_circle</mat-icon>
+                  <div matListItemTitle class="patient-name">{{paciente.nombreMenor}}</div>
+                  <div matListItemLine class="patient-parent">Padre: {{paciente.nombrePadre}}</div>
+                  <button mat-icon-button color="primary" (click)="selectTab('asignaciones')"
+                    matTooltip="Ver Historial">
+                    <mat-icon>history</mat-icon>
+                  </button>
+                </mat-list-item>
+              </mat-list>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- TARJETA 3: Mi Desempeño -->
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                <mat-icon class="card-icon">star</mat-icon>
+                Mi Desempeño
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="performance-content">
+                <div class="rating-display" *ngIf="totalEvaluaciones > 0">
+                  <div class="stars-container-large">
+                    <mat-icon *ngFor="let star of getStarsArray(promedioCalificacion)" class="star-large">
+                      star
+                    </mat-icon>
+                  </div>
+                  <div class="rating-text">
+                    <span class="rating-value">{{promedioCalificacion | number:'1.1-1'}}</span>
+                    <span class="rating-max">/ 5.0</span>
+                  </div>
+                  <p class="rating-count">{{totalEvaluaciones}} evaluación{{totalEvaluaciones !== 1 ? 'es' : ''}}</p>
+                </div>
+                <div class="no-ratings" *ngIf="totalEvaluaciones === 0">
+                  <mat-icon>star_border</mat-icon>
+                  <p>Aún no tienes evaluaciones</p>
+                </div>
+                <button mat-raised-button color="primary" class="view-all-btn" (click)="selectTab('asignaciones')">
+                  <mat-icon>arrow_forward</mat-icon>
+                  Ver todas las asignaciones
+                </button>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+        </div>
+      </div>
+
+      <!-- OTRAS SECCIONES -->
+      <div *ngIf="activeTab === 'disponibilidad'">
+        <app-psicologo-disponibilidad-list></app-psicologo-disponibilidad-list>
+      </div>
+
+      <div *ngIf="activeTab === 'asignaciones'">
+        <app-psicologo-asignacion-list></app-psicologo-asignacion-list>
+      </div>
+
+      <div *ngIf="activeTab === 'citas'">
+        <app-psicologo-cita-list></app-psicologo-cita-list>
+      </div>
+
+      <div *ngIf="activeTab === 'informes'">
+        <app-psicologo-informe-list></app-psicologo-informe-list>
+      </div>
+
+      <div *ngIf="activeTab === 'evaluaciones'">
+        <app-psicologo-evaluacion-list></app-psicologo-evaluacion-list>
+      </div>
+
+    </main>
+  </div>
+</div>

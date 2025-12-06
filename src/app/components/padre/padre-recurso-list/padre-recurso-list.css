@@ -1,0 +1,127 @@
+/* Recursos - Grid Layout tipo Netflix/Pinterest */
+:host {
+  display: block;
+}
+
+/* Grid de tarjetas de recursos */
+::ng-deep .nk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 1rem;
+}
+
+/* Tarjetas de recursos optimizadas */
+::ng-deep .nk-resource-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+::ng-deep .nk-resource-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Imágenes de recursos limitadas en altura */
+::ng-deep .nk-resource-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Contenido de la tarjeta */
+::ng-deep .nk-resource-card mat-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+}
+
+/* Título del recurso */
+::ng-deep .nk-resource-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--nk-dark);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Descripción del recurso */
+::ng-deep .nk-resource-card p {
+  font-size: 0.875rem;
+  color: var(--nk-muted);
+  line-height: 1.5;
+  margin: 0 0 1rem 0;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Meta información y botón */
+::ng-deep .nk-resource-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+::ng-deep .nk-resource-meta span {
+  font-size: 0.75rem;
+  color: var(--nk-muted);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Botón de favorito */
+::ng-deep .nk-resource-card button[mat-icon-button] {
+  flex-shrink: 0;
+}
+
+/* Estado vacío */
+::ng-deep .dashboard-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--nk-muted);
+}
+
+::ng-deep .dashboard-empty mat-icon {
+  font-size: 3rem;
+  width: 3rem;
+  height: 3rem;
+  opacity: 0.3;
+  margin-bottom: 1rem;
+}
+
+/* Responsive: 2 columnas en tablets */
+@media (max-width: 768px) {
+  ::ng-deep .nk-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  ::ng-deep .nk-resource-card img {
+    height: 140px;
+  }
+}
+
+/* Responsive: 1 columna en móviles */
+@media (max-width: 480px) {
+  ::ng-deep .nk-grid {
+    grid-template-columns: 1fr;
+  }
+}

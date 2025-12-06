@@ -1,0 +1,45 @@
+/* Estilos para la tabla de Menores */
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Ajuste de anchos de columna */
+.mat-column-nombre {
+    width: 20%;
+}
+
+.mat-column-fechaNacimiento {
+    width: 15%;
+}
+
+.mat-column-grado {
+    width: 15%;
+}
+
+.mat-column-motivo {
+    width: 35%;
+}
+
+.mat-column-actions {
+    width: 15%;
+    text-align: center;
+}
+
+/* Truncar texto largo en motivo */
+.motivo-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    /* Necesario para que el ellipsis funcione en celdas */
+    padding-right: 10px;
+}
+
+/* Alineación de botones de acción */
+.d-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>Ficha de Atención Clínica</h2>
+
+<mat-dialog-content>
+  <!-- Header con información del paciente -->
+  <div class="patient-info-header">
+    <div class="patient-main">
+      <mat-icon class="avatar-icon">face</mat-icon>
+      <div>
+        <h3>{{ cita.nombreCompletoMenor }}</h3>
+        <p class="subtitle">Padre/Madre: {{ cita.nombreCompletoPadre }}</p>
+      </div>
+    </div>
+    <div class="cita-details">
+      <p>
+        <mat-icon>event</mat-icon>
+        <span>{{ cita.fechaHoraCita | date: 'dd/MM/yyyy':'UTC' }}</span>
+      </p>
+      <p class="motivo">
+        <strong>Motivo:</strong> {{ cita.motivoCita }}
+      </p>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Formulario de hallazgos clínicos (SOAP) -->
+  <form [formGroup]="atenderForm" class="clinical-form">
+
+    <!-- 1. Observaciones (S/O) -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>1. Observaciones de la Sesión</mat-label>
+      <textarea matInput formControlName="observaciones" rows="4"
+        placeholder="Describa lo observado y escuchado durante la sesión...">
+      </textarea>
+      <mat-hint>Registro de conducta, estado de ánimo y relato del paciente.</mat-hint>
+      <mat-error *ngIf="atenderForm.get('observaciones')?.hasError('required')">
+        Campo requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- 2. Diagnóstico / Análisis (A) -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>2. Análisis / Diagnóstico</mat-label>
+      <textarea matInput formControlName="diagnostico" rows="4"
+        placeholder="Interpretación clínica de la información recabada...">
+      </textarea>
+      <mat-hint>Impresión diagnóstica o análisis del progreso.</mat-hint>
+      <mat-error *ngIf="atenderForm.get('diagnostico')?.hasError('required')">
+        Campo requerido.
+      </mat-error>
+    </mat-form-field>
+
+    <!-- 3. Plan / Recomendaciones (P) -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>3. Plan / Recomendaciones</mat-label>
+      <textarea matInput formControlName="planTratamiento" rows="4"
+        placeholder="Tareas para casa, recomendaciones o plan para la próxima sesión...">
+      </textarea>
+      <mat-hint>Indicaciones terapéuticas y pasos a seguir.</mat-hint>
+      <mat-error *ngIf="atenderForm.get('planTratamiento')?.hasError('required')">
+        Campo requerido.
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="Grabar()" [disabled]="atenderForm.invalid">
+    <mat-icon>save</mat-icon> Guardar Ficha Clínica
+  </button>
+</mat-dialog-actions>

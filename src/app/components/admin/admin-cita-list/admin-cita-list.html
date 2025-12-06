@@ -1,0 +1,83 @@
+<div class="header-container">
+  <h2>Torre de Control de Citas</h2>
+</div>
+
+<div class="dashboard-filter">
+  <div class="filter-row">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Filtrar Citas...</mat-label>
+      <input matInput 
+             [value]="filtros.texto"
+             (keyup)="applyFilter($event)" 
+             placeholder="Buscar por fecha, psicólogo, menor, padre, estado...">
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="estado-filter">
+      <mat-label>Estado</mat-label>
+      <mat-select [(ngModel)]="filtros.estado" (selectionChange)="actualizarFiltro()">
+        <mat-option *ngFor="let estado of estadosDisponibles" [value]="estado">
+          {{ estado }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="nk-card p-0 overflow-hidden">
+  <table mat-table [dataSource]="dsCitas" class="nk-table">
+
+    <ng-container matColumnDef="fecha">
+      <th mat-header-cell *matHeaderCellDef> Fecha </th>
+      <td mat-cell *matCellDef="let c"> {{c.fecha | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hora">
+      <th mat-header-cell *matHeaderCellDef> Hora </th>
+      <td mat-cell *matCellDef="let c"> {{formatRangoHoras(c.horaInicio, c.horaFin)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="psicologo">
+      <th mat-header-cell *matHeaderCellDef> Psicólogo </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombrePsicologo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menor">
+      <th mat-header-cell *matHeaderCellDef> Menor </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombreMenor}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="padre">
+      <th mat-header-cell *matHeaderCellDef> Padre </th>
+      <td mat-cell *matCellDef="let c"> {{c.nombrePadre}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let c">
+        <span class="nk-badge" [ngClass]="getEstadoClass(c.estado)">
+          {{c.estado}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let c" class="flex gap-2">
+        <button mat-icon-button color="primary" (click)="verDetalle(c)" matTooltip="Ver Detalle">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button 
+                color="warn" 
+                (click)="cancelarCita(c)" 
+                [disabled]="c.estado === 'Finalizada' || c.estado === 'Cancelada' || c.estado === 'Rechazada'"
+                [matTooltip]="(c.estado === 'Finalizada' || c.estado === 'Cancelada' || c.estado === 'Rechazada') ? 'Solo se pueden cancelar citas pendientes o programadas' : 'Cancelar Cita'">
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+

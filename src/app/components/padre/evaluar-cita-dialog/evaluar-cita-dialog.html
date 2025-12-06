@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{data.readOnly ? 'Tu Evaluación' : 'Evaluar Cita'}}</h2>
+<mat-dialog-content class="dialog-content">
+    <p class="dialog-subtitle" *ngIf="!data.readOnly">¿Cómo fue tu experiencia con
+        <strong>{{data.nombrePsicologo}}</strong>?
+    </p>
+    <p class="dialog-subtitle" *ngIf="data.readOnly">Evaluación realizada a <strong>{{data.nombrePsicologo}}</strong>
+    </p>
+
+    <div class="rating-container" [class.readonly]="data.readOnly">
+        <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" class="star-icon"
+            [class.filled]="star <= (hoverPuntaje || puntaje)" (click)="setRating(star)"
+            (mouseenter)="setHoverRating(star)" (mouseleave)="clearHoverRating()">
+            star
+        </mat-icon>
+    </div>
+    <p class="rating-label" *ngIf="puntaje > 0">Calificación: {{puntaje}}/5</p>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comentario (Opcional)</mat-label>
+        <textarea matInput [(ngModel)]="comentario" rows="4" placeholder="Comparte tu experiencia..."
+            [disabled]="!!data.readOnly"></textarea>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button (click)="cancelar()">{{data.readOnly ? 'Cerrar' : 'Cancelar'}}</button>
+    <button mat-raised-button color="primary" (click)="enviarEvaluacion()" [disabled]="puntaje === 0"
+        *ngIf="!data.readOnly">
+        Enviar Evaluación
+    </button>
+</mat-dialog-actions>

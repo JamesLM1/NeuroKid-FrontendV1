@@ -1,0 +1,47 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Evaluar Psicólogo</h2>
+  </div>
+
+  <div class="dashboard-card" style="max-width: 800px;">
+    <form [formGroup]="evaluacionForm" (ngSubmit)="Grabar()" class="dashboard-form">
+
+      <div class="full-width">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Seleccionar Cita Atendida</mat-label>
+          <mat-select formControlName="citaId" required>
+            <mat-option *ngIf="citasAtendidas.length === 0" disabled>No tiene citas finalizadas para evaluar</mat-option>
+            <mat-option *ngFor="let cita of citasAtendidas" [value]="cita.citaId">
+              {{ cita.fecha | date: 'dd/MM/yy':'UTC' }} - {{ cita.nombrePsicologo }} ({{ cita.nombreMenor }})
+            </mat-option>
+          </mat-select>
+          <mat-error>Requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Puntaje (5 = Excelente)</mat-label>
+        <mat-select formControlName="puntaje" required>
+          <mat-option *ngFor="let p of puntajes" [value]="p">
+            {{ p }} - {{ p === 5 ? 'Excelente' : (p === 1 ? 'Deficiente' : '...') }}
+          </mat-option>
+        </mat-select>
+        <mat-error>Requerido</mat-error>
+      </mat-form-field>
+
+      <div class="full-width">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Comentario</mat-label>
+          <textarea matInput formControlName="comentario" placeholder="Describe tu experiencia..." rows="4" required></textarea>
+          <mat-error>Requerido</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="dashboard-form-actions">
+        <button type="submit" mat-raised-button color="primary" class="nk-btn-primary" [disabled]="evaluacionForm.invalid">
+          <mat-icon>send</mat-icon> Enviar Evaluación
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

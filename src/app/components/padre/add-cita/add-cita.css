@@ -1,0 +1,142 @@
+/* Estilos para el modal de Solicitar Cita */
+:host {
+  display: block;
+}
+
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 16px;
+  padding: 0;
+}
+
+::ng-deep .mat-mdc-dialog-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  padding: 1.5rem;
+  margin: 0;
+  border-bottom: 1px solid var(--nk-border);
+}
+
+::ng-deep .mat-mdc-dialog-content {
+  padding: 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modal-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .modal-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.modal-form .full-width {
+  grid-column: 1 / -1;
+}
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--nk-border);
+  background: #fafafa;
+}
+
+/* Angular Material maneja los estilos de inputs automáticamente */
+/* Solo mantenemos estilos para elementos que NO usan mat-form-field */
+
+/* Form fields outline */
+::ng-deep .mat-mdc-form-field-appearance-outline .mat-mdc-form-field-outline {
+  border-radius: 10px !important;
+  border-color: #e2e8f0 !important;
+}
+
+::ng-deep .mat-mdc-form-field-appearance-outline.mat-focused .mat-mdc-form-field-outline-thick {
+  border-color: #2DD4BF !important;
+  border-width: 2px;
+}
+
+/* Mensajes de error compactos */
+::ng-deep mat-error,
+::ng-deep .mat-mdc-form-field-error,
+::ng-deep .error-message {
+  color: #ef4444 !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+/* Contenedor de mensaje de error sin disponibilidad */
+.error-message-container {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px;
+  background-color: #fff3cd;
+  border-left: 4px solid #ff9800;
+  border-radius: 4px;
+  color: #856404;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.error-message-container mat-icon {
+  color: #ff9800;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.error-message-container span {
+  flex: 1;
+}
+
+/* Estilos para el selector de horarios */
+::ng-deep .mat-mdc-form-field-hint {
+  color: #6b7280 !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  margin-top: 4px;
+}
+
+/* Opciones del selector de horarios */
+::ng-deep .mat-mdc-option {
+  font-family: 'Inter', sans-serif !important;
+}
+
+::ng-deep .mat-mdc-option.mat-mdc-option-disabled {
+  color: #9ca3af !important;
+  font-style: italic;
+}
+
+/* Icono de carga en las opciones */
+::ng-deep .mat-mdc-option mat-icon {
+  margin-right: 8px;
+  font-size: 18px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Destacar horarios disponibles */
+::ng-deep .mat-mdc-option:not(.mat-mdc-option-disabled) {
+  background-color: #f8fafc;
+  border-left: 3px solid #2DD4BF;
+  margin: 2px 0;
+}
+
+::ng-deep .mat-mdc-option:not(.mat-mdc-option-disabled):hover {
+  background-color: #e0f2fe !important;
+}

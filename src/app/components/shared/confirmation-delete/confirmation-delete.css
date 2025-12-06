@@ -1,0 +1,53 @@
+/* ==========================================================================
+   Confirmation Delete Dialog - Estilos
+   ========================================================================== */
+
+/* Asegurar fondo blanco */
+:host {
+  background-color: #ffffff !important;
+  display: block !important;
+  min-width: 300px;
+  max-width: 500px;
+  color: #000000 !important; /* Texto negro forzado */
+}
+
+h2[mat-dialog-title],
+h2,
+p,
+.mat-mdc-dialog-content {
+  color: #000000 !important; /* Texto negro forzado */
+}
+
+h2[mat-dialog-title],
+h2 {
+  margin: 0 0 16px 0 !important;
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+}
+
+mat-dialog-content,
+.mat-mdc-dialog-content {
+  margin: 0 !important;
+  padding: 16px 0 !important;
+  color: #000000 !important;
+}
+
+mat-dialog-content p,
+p {
+  margin: 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  color: #000000 !important;
+}
+
+mat-dialog-actions {
+  margin: 16px 0 0 0;
+  padding: 8px 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+mat-dialog-actions button {
+  min-width: 80px;
+}

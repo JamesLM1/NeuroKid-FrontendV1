@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Detalle de Cita</h2>
+
+<mat-dialog-content>
+  <!-- Header: Resumen de la Cita -->
+  <div class="cita-summary">
+    <div class="summary-header">
+      <div class="summary-item">
+        <mat-icon>event</mat-icon>
+        <div>
+          <span class="label">Fecha</span>
+          <span class="value">
+            {{ getFecha() | date: 'dd/MM/yyyy':'UTC' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="summary-item">
+        <mat-icon class="avatar-icon">face</mat-icon>
+        <div>
+          <span class="label">Paciente</span>
+          <span class="value">{{ getNombreMenor() }}</span>
+        </div>
+      </div>
+
+      <div class="summary-item">
+        <mat-icon>person</mat-icon>
+        <div>
+          <span class="label">Psicólogo</span>
+          <span class="value">{{ getNombrePsicologo() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-footer">
+      <mat-chip-listbox>
+        <mat-chip [class.chip-finalizada]="getEstado() === 'Finalizada'">
+          {{ getEstado() }}
+        </mat-chip>
+      </mat-chip-listbox>
+      <div class="motivo-section">
+        <strong>Motivo:</strong> {{ getMotivo() }}
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Body: Hallazgos Clínicos -->
+  <div class="clinical-container">
+    <h3><mat-icon>assignment</mat-icon> Ficha Clínica</h3>
+
+    <div class="clinical-section" *ngIf="cita.observaciones">
+      <span class="label">Observaciones de la Sesión:</span>
+      <p>{{ cita.observaciones }}</p>
+    </div>
+
+    <div class="clinical-section" *ngIf="cita.diagnostico">
+      <span class="label">Análisis / Diagnóstico:</span>
+      <p>{{ cita.diagnostico }}</p>
+    </div>
+
+    <div class="clinical-section" *ngIf="cita.planTratamiento">
+      <span class="label">Plan / Recomendaciones:</span>
+      <p>{{ cita.planTratamiento }}</p>
+    </div>
+
+    <div class="clinical-section" *ngIf="!cita.observaciones && cita.hallazgos">
+      <span class="label">Notas Generales:</span>
+      <p>{{ cita.hallazgos }}</p>
+    </div>
+
+    <div *ngIf="!cita.observaciones && !cita.hallazgos" class="empty-state">
+      <p>Sin notas registradas.</p>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cerrar</button>
+</mat-dialog-actions>

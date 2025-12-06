@@ -1,0 +1,48 @@
+<div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+  <h2 class="text-2xl font-bold">Mi Disponibilidad Semanal</h2>
+  <button mat-raised-button color="primary" (click)="openAddDialog()" class="nk-btn-primary">
+    <mat-icon>add</mat-icon>
+    Añadir/Editar Franja
+  </button>
+</div>
+<br>
+
+<div class="nk-card p-0 overflow-hidden">
+  <table mat-table [dataSource]="dsDisponibilidad" class="nk-table">
+
+        <ng-container matColumnDef="diaSemana">
+      <th mat-header-cell *matHeaderCellDef> Día </th>
+      <td mat-cell *matCellDef="let d"> {{d.diaSemana}} </td>
+    </ng-container>
+
+        <ng-container matColumnDef="horaInicio">
+      <th mat-header-cell *matHeaderCellDef> Hora Inicio </th>
+      <td mat-cell *matCellDef="let d"> {{d.horaInicio}} </td>
+    </ng-container>
+    
+        <ng-container matColumnDef="horaFin">
+      <th mat-header-cell *matHeaderCellDef> Hora Fin </th>
+      <td mat-cell *matCellDef="let d"> {{d.horaFin}} </td>
+    </ng-container>
+
+        <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let d" class="flex gap-2">
+        <button mat-icon-button color="primary" (click)="openEditDialog(d)" matTooltip="Editar Franja">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteDisponibilidad(d)" matTooltip="Eliminar Franja">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [colSpan]="displayedColumns.length">
+        No ha configurado su disponibilidad horaria.
+      </td>
+    </tr>
+  </table>
+</div>

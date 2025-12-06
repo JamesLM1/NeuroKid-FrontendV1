@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Detalle de Evaluación</h2>
+<mat-dialog-content class="dialog-content">
+
+    <div class="info-row" *ngIf="data.psicologo">
+        <span class="label">Psicólogo Evaluado:</span>
+        <span class="value">{{data.psicologo}}</span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Evaluador (Padre/Tutor):</span>
+        <span class="value">{{data.padre}}</span>
+    </div>
+
+    <div class="info-row">
+        <span class="label">Fecha:</span>
+        <span class="value">{{data.fecha | date:'dd/MM/yyyy HH:mm'}}</span>
+    </div>
+
+    <mat-divider class="divider"></mat-divider>
+
+    <div class="rating-section">
+        <span class="label">Calificación:</span>
+        <div class="stars-container">
+            <mat-icon *ngFor="let star of getStarsArray(data.puntaje)" class="star-icon">star</mat-icon>
+            <span class="rating-number">({{data.puntaje}}/5)</span>
+        </div>
+    </div>
+
+    <div class="comment-section">
+        <span class="label">Comentario:</span>
+        <div class="comment-box">
+            <p *ngIf="data.comentario">{{data.comentario}}</p>
+            <p *ngIf="!data.comentario" class="no-comment">Sin comentario.</p>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button color="primary" (click)="cerrar()">Cerrar</button>
+</mat-dialog-actions>

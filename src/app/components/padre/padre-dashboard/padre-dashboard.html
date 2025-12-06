@@ -1,0 +1,110 @@
+<div class="dashboard-layout">
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-header">
+      <a routerLink="/" class="brand-link">
+        <img src="assets/images/logo.png" alt="Logo" class="brand-logo" />
+        <span class="brand-name">NeuroKid</span>
+      </a>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nk-tabs" role="tablist">
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'inicio'" (click)="selectTab('inicio')">
+          <mat-icon>home</mat-icon> <span>Inicio</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'menores'" (click)="selectTab('menores')">
+          <mat-icon>groups</mat-icon> <span>Menores</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'citas'" (click)="selectTab('citas')">
+          <mat-icon>calendar_today</mat-icon> <span>Citas</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'progreso'" (click)="selectTab('progreso')">
+          <mat-icon>bar_chart</mat-icon> <span>Progreso</span>
+        </button>
+        <button class="nk-tab" [attr.aria-selected]="activeTab === 'recursos'" (click)="selectTab('recursos')">
+          <mat-icon>book</mat-icon> <span>Recursos</span>
+        </button>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button mat-button class="logout-btn" routerLink="/">
+        <mat-icon>logout</mat-icon>
+        <span>Salir</span>
+      </button>
+    </div>
+     
+  </aside>
+
+  <div class="dashboard-main">
+    <main class="main-content">
+
+      <div *ngIf="activeTab === 'inicio'">
+        <div class="welcome-section">
+          <h1>¡Bienvenido, Padre/Apoderado!</h1>
+          <p>Gestiona la información de tus hijos, agenda citas y revisa su progreso.</p>
+        </div>
+
+        <!-- Widgets de Resumen -->
+        <div class="dashboard-widgets">
+
+          <!-- Widget 1: Mis Menores -->
+          <div class="widget-card">
+            <div class="widget-icon widget-icon--green">
+              <mat-icon>groups</mat-icon>
+            </div>
+            <div class="widget-content">
+              <h3 class="widget-title">Mis Menores</h3>
+              <p class="widget-value">{{ totalMenores }}</p>
+              <p class="widget-subtitle">Menores registrados</p>
+            </div>
+          </div>
+
+          <!-- Widget 2: Próxima Cita -->
+          <div class="widget-card">
+            <div class="widget-icon widget-icon--blue">
+              <mat-icon>event</mat-icon>
+            </div>
+            <div class="widget-content">
+              <h3 class="widget-title">Próxima Cita</h3>
+              <p class="widget-value" *ngIf="proximaCita">{{ proximaCita.fecha | date: 'dd/MM':'UTC' }}</p>
+              <p class="widget-value" *ngIf="!proximaCita">-</p>
+              <p class="widget-subtitle" *ngIf="proximaCita">{{ proximaCita.nombrePsicologo }}</p>
+              <p class="widget-subtitle" *ngIf="!proximaCita">Sin citas pendientes</p>
+            </div>
+          </div>
+
+          <!-- Widget 3: Acceso Rápido -->
+          <div class="widget-card widget-card--action">
+            <div class="widget-icon widget-icon--teal">
+              <mat-icon>add_circle</mat-icon>
+            </div>
+            <div class="widget-content">
+              <h3 class="widget-title">Acceso Rápido</h3>
+              <button class="btn-primary-nk widget-btn" (click)="selectTab('citas')">
+                <mat-icon>calendar_today</mat-icon>
+                Solicitar Cita
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'menores'">
+        <app-padre-menor-list></app-padre-menor-list>
+      </div>
+
+      <div *ngIf="activeTab === 'citas'">
+        <app-padre-cita-list></app-padre-cita-list>
+      </div>
+
+      <div *ngIf="activeTab === 'progreso'">
+        <app-padre-progreso></app-padre-progreso>
+      </div>
+
+      <div *ngIf="activeTab === 'recursos'">
+        <app-padre-recurso-list></app-padre-recurso-list>
+      </div>
+
+    </main>
+  </div>
+</div>

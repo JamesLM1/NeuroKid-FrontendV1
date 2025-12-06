@@ -1,0 +1,176 @@
+<section class="nk-form-section">
+  <div class="nk-form-card">
+    <p class="nk-form-eyebrow">Portal NeuroKid</p>
+    <h1 class="nk-form-title">Crear cuenta</h1>
+    <p class="nk-form-subtitle">
+      Elige tu rol y completa tus credenciales para acceder al ecosistema NeuroKid.
+    </p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="Grabar()" class="nk-form">
+
+      <!-- SECCIÓN 1: ROL -->
+      <div class="nk-input-group">
+        <label for="rol">Rol</label>
+        <select id="rol" class="nk-select" formControlName="authorities" required>
+          <option value="" disabled>Selecciona tu rol</option>
+          <option *ngFor="let rol of roles" [value]="rol">
+            {{ rol === 'ROLE_PADRE' ? 'Padre / Apoderado' : (rol === 'ROLE_PSICOLOGO' ? 'Psicólogo' : 'Administrador')
+            }}
+          </option>
+        </select>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('authorities')?.touched && registerForm.get('authorities')?.hasError('required')">
+          Debes seleccionar un rol.
+        </p>
+      </div>
+
+      <!-- SECCIÓN 2: DATOS PERSONALES -->
+      <div class="nk-grid-2">
+        <div class="nk-input-group">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" class="nk-input" type="text" formControlName="nombre" placeholder="Tu nombre" required>
+          <p class="nk-field-error"
+            *ngIf="registerForm.get('nombre')?.touched && registerForm.get('nombre')?.hasError('required')">
+            Requerido.
+          </p>
+        </div>
+        <div class="nk-input-group">
+          <label for="apellido">Apellido</label>
+          <input id="apellido" class="nk-input" type="text" formControlName="apellido" placeholder="Tu apellido"
+            required>
+          <p class="nk-field-error"
+            *ngIf="registerForm.get('apellido')?.touched && registerForm.get('apellido')?.hasError('required')">
+            Requerido.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECCIÓN 3: DOCUMENTO DE IDENTIDAD (COMPUESTO) -->
+      <div class="nk-input-group">
+        <label>Documento de Identidad</label>
+        <div class="nk-input-composite">
+          <select class="nk-select-prefix" formControlName="tipoDocumento">
+            <option *ngFor="let tipo of tiposDocumento" [value]="tipo.valor">{{tipo.etiqueta}}</option>
+          </select>
+          <input type="text" class="nk-input-suffix" formControlName="numeroDocumento"
+            placeholder="Número de documento">
+        </div>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('numeroDocumento')?.touched && registerForm.get('numeroDocumento')?.hasError('required')">
+          El número de documento es obligatorio.
+        </p>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('numeroDocumento')?.touched && registerForm.get('numeroDocumento')?.hasError('pattern')">
+          Formato inválido (8-12 caracteres alfanuméricos).
+        </p>
+      </div>
+
+      <!-- SECCIÓN 4: TELÉFONO (COMPUESTO) -->
+      <div class="nk-input-group">
+        <label>Teléfono / Celular</label>
+        <div class="nk-input-composite">
+          <select class="nk-select-prefix" formControlName="prefijo" style="width: 100px;">
+            <option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.bandera}} {{pais.codigo}}</option>
+          </select>
+          <input type="tel" class="nk-input-suffix" formControlName="telefono" placeholder="999 999 999">
+        </div>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('telefono')?.touched && registerForm.get('telefono')?.hasError('required')">
+          El teléfono es obligatorio.
+        </p>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('telefono')?.touched && registerForm.get('telefono')?.hasError('pattern')">
+          Debe tener 9 dígitos.
+        </p>
+      </div>
+
+      <!-- SECCIÓN 5: CORREO ELECTRÓNICO (COMPUESTO) -->
+      <div class="nk-input-group">
+        <label>Correo Electrónico</label>
+        <div class="nk-input-composite">
+          <input type="text" class="nk-input-prefix" formControlName="emailUser" placeholder="usuario">
+          <select class="nk-select-suffix" formControlName="dominioEmail">
+            <option *ngFor="let dominio of dominios" [value]="dominio">{{dominio}}</option>
+          </select>
+        </div>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('emailUser')?.touched && registerForm.get('emailUser')?.hasError('required')">
+          El usuario del correo es obligatorio.
+        </p>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('emailUser')?.touched && registerForm.get('emailUser')?.hasError('pattern')">
+          Caracteres no permitidos.
+        </p>
+      </div>
+
+      <!-- SECCIÓN 6: CAMPOS ESPECÍFICOS POR ROL -->
+
+      <!-- Para Psicólogos: Especialidad -->
+      <div class="nk-input-group" *ngIf="registerForm.get('authorities')?.value === 'ROLE_PSICOLOGO'">
+        <label for="especialidad">Especialidad</label>
+        <select id="especialidad" class="nk-select" formControlName="especialidad">
+          <option value="" disabled>Selecciona tu especialidad</option>
+          <option *ngFor="let esp of especialidades" [value]="esp">{{esp}}</option>
+        </select>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('especialidad')?.touched && registerForm.get('especialidad')?.hasError('required')">
+          La especialidad es requerida para psicólogos.
+        </p>
+      </div>
+
+      <!-- Para Padres: Parentesco -->
+      <div class="nk-input-group" *ngIf="registerForm.get('authorities')?.value === 'ROLE_PADRE'">
+        <label for="parentesco">Parentesco con el menor</label>
+        <select id="parentesco" class="nk-select" formControlName="tipoParentesco">
+          <option value="" disabled>Selecciona parentesco</option>
+          <option *ngFor="let par of parentescos" [value]="par">{{par}}</option>
+        </select>
+        <p class="nk-field-error"
+          *ngIf="registerForm.get('tipoParentesco')?.touched && registerForm.get('tipoParentesco')?.hasError('required')">
+          El parentesco es requerido.
+        </p>
+      </div>
+
+      <!-- SECCIÓN 7: CONTRASEÑA -->
+      <div class="nk-grid-2">
+        <div class="nk-input-group">
+          <label for="password">Contraseña</label>
+          <input id="password" class="nk-input" type="password" formControlName="password" placeholder="••••••••"
+            autocomplete="new-password">
+          <p class="nk-field-error"
+            *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('required')">
+            Requerido.
+          </p>
+          <p class="nk-field-error"
+            *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.hasError('minlength')">
+            Mínimo 6 caracteres.
+          </p>
+        </div>
+        <div class="nk-input-group">
+          <label for="confirmPassword">Confirmar</label>
+          <input id="confirmPassword" class="nk-input" type="password" formControlName="confirmPassword"
+            placeholder="••••••••" autocomplete="new-password">
+          <p class="nk-field-error"
+            *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.hasError('required')">
+            Requerido.
+          </p>
+          <p class="nk-field-error"
+            *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+            No coinciden.
+          </p>
+        </div>
+      </div>
+
+      <div class="nk-form-actions">
+        <button type="submit" class="btn-primary-nk" [disabled]="registerForm.invalid">
+          <span class="material-icons">person_add</span>
+          Registrarme
+        </button>
+        <p class="nk-form-footer">
+          ¿Ya tienes una cuenta?
+          <a routerLink="/login" class="nk-link">Inicia sesión</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</section>

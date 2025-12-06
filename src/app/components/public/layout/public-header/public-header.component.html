@@ -1,0 +1,23 @@
+<header class="nk-navbar" role="navigation" aria-label="Principal">
+  <div class="nk-nav-inner">
+    <a routerLink="/" class="nk-brand focus-ring" aria-label="Ir al inicio">
+      <img src="assets/images/logo.png" alt="Logo NeuroKid" />
+      <span>NeuroKid</span>
+    </a>
+
+    <nav class="nk-nav-links" [class.is-open]="isMobileMenuOpen" id="navPrimary">
+      <a href="/#inicio" (click)="closeMobileMenu()" class="nk-link">Inicio</a>
+      <a href="/#equipo" (click)="closeMobileMenu()" class="nk-link">Nuestro Equipo</a>
+      <a href="/#soluciones" (click)="closeMobileMenu()" class="nk-link">Nuestras Soluciones</a>
+      <a href="/#impacto" (click)="closeMobileMenu()" class="nk-link">Impacto</a>
+      <a href="/#recursos" (click)="closeMobileMenu()" class="nk-link">Recursos</a>
+      <a routerLink="/login" (click)="closeMobileMenu()" class="nk-link">Login</a>
+      <a routerLink="/register" (click)="closeMobileMenu()" class="nk-link nk-cta">Registrarse</a>
+    </nav>
+
+    <button class="nk-nav-toggle focus-ring" type="button" (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen" aria-controls="navPrimary" aria-label="Abrir menú">
+      <span class="material-icons">{{ isMobileMenuOpen ? 'close' : 'menu' }}</span>
+    </button>
+  </div>
+</header>

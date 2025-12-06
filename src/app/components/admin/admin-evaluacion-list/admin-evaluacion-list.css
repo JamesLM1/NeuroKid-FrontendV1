@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Admin Evaluacion List - Estilos específicos
+   ========================================================================== */
+
+/* Contenedor principal - FORZAR ANCHO TOTAL */
+:host {
+  display: block;
+  width: 100%;
+}
+
+/* Header container */
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.header-container h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  margin: 0;
+  flex: 1;
+}
+
+/* Filtro de búsqueda */
+.dashboard-filter {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+/* Tabla y acciones */
+.nk-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--nk-border);
+}
+
+/* RESET DE TABLA */
+table {
+  width: 100% !important;
+  table-layout: fixed !important;
+}
+
+/* ANCHOS DE COLUMNA - OPTIMIZADOS */
+.mat-column-fecha { width: 12%; }
+.mat-column-psicologo { width: 18%; }
+.mat-column-padre { width: 18%; }
+.mat-column-puntaje { width: 12%; text-align: center; }
+.mat-column-comentario { width: 30%; }
+.mat-column-acciones { width: 10%; text-align: center; }
+
+/* OPTIMIZACIÓN DE TEXTO */
+.mat-mdc-header-cell {
+  font-size: 12px !important;
+  padding: 0 4px !important;
+  font-weight: 700 !important;
+  white-space: nowrap;
+}
+
+td.mat-cell {
+  font-size: 13px !important;
+  padding: 0 4px !important;
+}
+
+/* ALINEACIÓN DE COLUMNAS CENTRADAS */
+.mat-column-puntaje,
+.mat-column-acciones {
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-column-puntaje .mat-sort-header-container,
+.mat-column-acciones .mat-sort-header-container {
+  justify-content: center;
+}
+
+/* Estilos para estrellas */
+.stars-cell {
+  text-align: center;
+}
+
+.stars-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.star-icon {
+  color: #fbbf24; /* Color dorado para las estrellas */
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+}
+
+/* Estilos para comentario */
+.comentario-cell {
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.comentario-text {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Botones de acción en la tabla */
+td.flex button[mat-icon-button] {
+  width: 36px !important;
+  height: 36px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+td.flex button[mat-icon-button]:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Asegurar que las celdas no desborden */
+td.mat-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Excepción para comentario: permitir texto largo */
+.comentario-cell {
+  white-space: normal !important;
+  word-wrap: break-word;
+  max-height: 60px;
+  overflow-y: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .header-container h2 {
+    font-size: 1.5rem;
+  }
+}
+

@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Detalle Cita Dialog - Estilos
+   ========================================================================== */
+
+:host {
+  display: block;
+  min-width: 500px;
+  max-width: 700px;
+}
+
+h2[mat-dialog-title] {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--nk-dark, #1f2937);
+  border-bottom: 2px solid var(--nk-primary, #5e81f4);
+  padding-bottom: 0.5rem;
+}
+
+mat-dialog-content {
+  padding: 1.5rem !important;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+/* Resumen de la Cita */
+.cita-summary {
+  margin-bottom: 1.5rem;
+}
+
+.summary-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.summary-item mat-icon {
+  color: var(--nk-primary, #5e81f4);
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.summary-item .label {
+  display: block;
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.summary-item .value {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--nk-dark, #1f2937);
+}
+
+/* Badge de Estado */
+mat-chip {
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  padding: 4px 12px !important;
+}
+
+/* Divider */
+mat-divider {
+  margin: 1.5rem 0 !important;
+}
+
+/* Secciones */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--nk-dark, #1f2937);
+  margin-bottom: 1rem;
+}
+
+.section-title mat-icon {
+  color: var(--nk-primary, #5e81f4);
+  font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Participantes */
+.participantes-section {
+  margin-bottom: 1.5rem;
+}
+
+.participante-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.participante-item:last-child {
+  margin-bottom: 0;
+}
+
+.participante-icon {
+  color: var(--nk-primary, #5e81f4);
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.participante-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.participante-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.25rem;
+}
+
+.participante-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--nk-dark, #1f2937);
+}
+
+/* Motivo */
+.motivo-section {
+  margin-bottom: 1rem;
+}
+
+.motivo-box {
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid var(--nk-primary, #5e81f4);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--nk-dark, #1f2937);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Acciones */
+mat-dialog-actions {
+  padding: 1rem 1.5rem !important;
+  border-top: 1px solid #e5e7eb;
+  margin: 0 !important;
+}
+
+/* Badges de estado */
+.nk-badge--success {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.nk-badge--danger {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+.nk-badge--info {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+}
+
+.nk-badge--warn {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  :host {
+    min-width: 90vw;
+    max-width: 90vw;
+  }
+
+  .summary-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

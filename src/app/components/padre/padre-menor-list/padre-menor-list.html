@@ -1,0 +1,63 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Gestión de Menores</h2>
+    <button mat-raised-button color="primary" (click)="openAddDialog()" class="nk-btn-primary">
+      <mat-icon>add</mat-icon>
+      Registrar Menor
+    </button>
+  </div>
+
+  <div class="dashboard-filter">
+    <input type="text" (keyup)="applyFilter($event)" placeholder="Buscar por nombre...">
+  </div>
+
+  <div class="dashboard-table-container">
+    <table mat-table [dataSource]="dsMenores" class="nk-table">
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let m"> {{m.nombre}} {{m.apellido}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaNacimiento">
+        <th mat-header-cell *matHeaderCellDef> Fecha de Nacimiento </th>
+        <td mat-cell *matCellDef="let m"> {{m.fechaNacimiento | date: 'dd/MM/yyyy':'UTC'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="grado">
+        <th mat-header-cell *matHeaderCellDef> Grado </th>
+        <td mat-cell *matCellDef="let m"> {{m.gradoEscolar || '-'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="motivo">
+        <th mat-header-cell *matHeaderCellDef> Motivo </th>
+        <td mat-cell *matCellDef="let m">
+          <span class="truncate-text" [matTooltip]="m.motivoConsulta">{{m.motivoConsulta || '-'}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+        <td mat-cell *matCellDef="let m">
+          <div class="d-flex gap-2">
+            <button mat-icon-button color="primary" (click)="openEditDialog(m)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteMenor(m)" matTooltip="Eliminar">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" [colSpan]="displayedColumns.length">
+          No tienes menores registrados. Haz clic en "Registrar Menor".
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

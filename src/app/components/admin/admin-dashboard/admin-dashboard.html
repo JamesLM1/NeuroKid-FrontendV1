@@ -1,0 +1,168 @@
+<div class="dashboard-layout">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                  <a routerLink="/" class="brand-link">
+                        <img src="assets/images/logo.png" alt="Logo" class="brand-logo" />
+                        <span class="brand-name">NeuroKid</span>
+                      </a>
+                </div>
+            <nav class="sidebar-nav">
+                  <div class="nk-tabs" role="tablist">
+                        <button class="nk-tab"                
+                    [attr.aria-selected]="activeTab === 'inicio'" (click)="selectTab('inicio')">
+                              <mat-icon>dashboard</mat-icon> <span>Inicio</span>
+                            </button>
+                        <button class="nk-tab"                
+                    [attr.aria-selected]="activeTab === 'usuarios'" (click)="selectTab('usuarios')">
+                              <mat-icon>groups</mat-icon> <span>Usuarios</span>
+                            </button>
+                        <button class="nk-tab"                
+                    [attr.aria-selected]="activeTab === 'asignaciones'" (click)="selectTab('asignaciones')">
+                              <mat-icon>link</mat-icon> <span>Asignaciones</span>
+                            </button>
+                        <button class="nk-tab"                
+                    [attr.aria-selected]="activeTab === 'citas'" (click)="selectTab('citas')">
+                              <mat-icon>event_note</mat-icon> <span>Monitoreo de Citas</span>
+                            </button>
+                        <button class="nk-tab"                
+                    [attr.aria-selected]="activeTab === 'recursos'" (click)="selectTab('recursos')">
+                              <mat-icon>book</mat-icon> <span>Recursos</span>
+                            </button>
+                        <button class="nk-tab"                
+                    [attr.aria-selected]="activeTab === 'evaluaciones'" (click)="selectTab('evaluaciones')">
+                              <mat-icon>star</mat-icon> <span>Evaluaciones</span>
+                            </button>
+                      </div>
+                </nav>
+            <div class="sidebar-footer">
+                  <button mat-button class="logout-btn" routerLink="/">
+                        <mat-icon>logout</mat-icon> 
+                        <span>Salir</span>
+                      </button>
+                </div>
+          </aside>
+
+        <div class="dashboard-main">
+            <main class="main-content">
+
+                        <div *ngIf="activeTab === 'inicio'">
+                          <div class="welcome-section">
+                            <h1>Panel de Administración</h1>
+                            <p>Gestiona usuarios, asignaciones y recursos del ecosistema NeuroKid.</p>
+                          </div>
+
+                          <!-- Widgets de Métricas del Sistema -->
+                          <div class="dashboard-widgets">
+                            
+                            <!-- Widget 1: Ingresos Estimados -->
+                            <div class="widget-card">
+                              <div class="widget-icon widget-icon--blue">
+                                <mat-icon>attach_money</mat-icon>
+                              </div>
+                              <div class="widget-content">
+                                <h3 class="widget-title">Ingresos Estimados</h3>
+                                <p class="widget-value">{{ metrics?.ingresosEstimados | currency:'PEN':'symbol':'1.0-0' }}</p>
+                                <p class="widget-subtitle">Citas finalizadas</p>
+                              </div>
+                            </div>
+
+                            <!-- Widget 2: Calidad Promedio -->
+                            <div class="widget-card">
+                              <div class="widget-icon widget-icon--green">
+                                <mat-icon>star</mat-icon>
+                              </div>
+                              <div class="widget-content">
+                                <h3 class="widget-title">Calidad Promedio</h3>
+                                <p class="widget-value">{{ metrics?.calidadPromedio | number:'1.1-1' }} / 5 ⭐</p>
+                                <p class="widget-subtitle">Evaluaciones de padres</p>
+                              </div>
+                            </div>
+
+                            <!-- Widget 3: Volumen de Citas -->
+                            <div class="widget-card">
+                              <div class="widget-icon widget-icon--purple">
+                                <mat-icon>event_note</mat-icon>
+                              </div>
+                              <div class="widget-content">
+                                <h3 class="widget-title">Volumen de Citas</h3>
+                                <p class="widget-value">{{ metrics?.totalCitas }}</p>
+                                <p class="widget-subtitle">Citas totales</p>
+                              </div>
+                            </div>
+
+                            <!-- Widget 4: Total Pacientes -->
+                            <div class="widget-card">
+                              <div class="widget-icon widget-icon--teal">
+                                <mat-icon>people</mat-icon>
+                              </div>
+                              <div class="widget-content">
+                                <h3 class="widget-title">Total Pacientes</h3>
+                                <p class="widget-value">{{ metrics?.totalPacientes }}</p>
+                                <p class="widget-subtitle">Menores activos</p>
+                              </div>
+                            </div>
+
+                          </div>
+
+                          <!-- Sección de Estadísticas Adicionales -->
+                          <div class="stats-section">
+                            <div class="nk-card">
+                              <h3>Actividad Reciente</h3>
+                              <div class="activity-list">
+                                <div class="activity-item">
+                                  <div class="activity-icon">
+                                    <mat-icon>person_add</mat-icon>
+                                  </div>
+                                  <div class="activity-content">
+                                    <p class="activity-title">Nuevo usuario registrado</p>
+                                    <p class="activity-time">Hace 2 horas</p>
+                                  </div>
+                                </div>
+                                <div class="activity-item">
+                                  <div class="activity-icon">
+                                    <mat-icon>assignment</mat-icon>
+                                  </div>
+                                  <div class="activity-content">
+                                    <p class="activity-title">Nueva asignación creada</p>
+                                    <p class="activity-time">Hace 4 horas</p>
+                                  </div>
+                                </div>
+                                <div class="activity-item">
+                                  <div class="activity-icon">
+                                    <mat-icon>book</mat-icon>
+                                  </div>
+                                  <div class="activity-content">
+                                    <p class="activity-title">Recurso educativo agregado</p>
+                                    <p class="activity-time">Ayer</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                  <div *ngIf="activeTab === 'usuarios'">
+                    <app-admin-padre-list></app-admin-padre-list>
+                    <div class="section-spacer"></div>
+                    <app-admin-psicologo-list></app-admin-psicologo-list>
+                  </div>
+
+              <div *ngIf="activeTab === 'asignaciones'">
+                        <app-admin-asignacion-list></app-admin-asignacion-list>
+                  </div>
+
+              <div *ngIf="activeTab === 'citas'">
+                        <app-admin-cita-list></app-admin-cita-list>
+                  </div>
+
+              <div *ngIf="activeTab === 'recursos'">
+                        <app-admin-recurso-list></app-admin-recurso-list>
+                  </div>
+
+              <div *ngIf="activeTab === 'evaluaciones'">
+                        <app-admin-evaluacion-list></app-admin-evaluacion-list>
+                  </div>
+
+                </main>
+          </div>
+</div>

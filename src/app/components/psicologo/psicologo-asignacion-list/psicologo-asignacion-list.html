@@ -1,0 +1,74 @@
+<h2 class="text-2xl font-bold">{{ mostrarHistorial ? 'Historial de Asignaciones (Altas Médicas)' : 'Mis Asignaciones' }}</h2>
+<br>
+
+<div class="dashboard-filter">
+  <div class="filter-row">
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Filtrar Asignaciones...</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por padre, menor...">
+    </mat-form-field>
+    <mat-slide-toggle 
+      [(ngModel)]="mostrarHistorial" 
+      (change)="toggleHistorial($event)"
+      color="primary"
+      class="historial-toggle">
+      Ver Historial (Altas)
+    </mat-slide-toggle>
+  </div>
+</div>
+<br>
+
+<div class="nk-card p-0 overflow-hidden">
+  <table mat-table [dataSource]="dsAsignaciones" class="nk-table">
+
+        <ng-container matColumnDef="padre">
+      <th mat-header-cell *matHeaderCellDef> Padre </th>
+      <td mat-cell *matCellDef="let a"> {{a.nombrePadre || ('ID ' + a.padreId)}} </td>
+    </ng-container>
+
+        <ng-container matColumnDef="menor">
+      <th mat-header-cell *matHeaderCellDef> Menor </th>
+      <td mat-cell *matCellDef="let a"> {{a.nombreMenor || ('ID ' + a.menorId)}} </td>
+    </ng-container>
+
+        <ng-container matColumnDef="fechaAsignacion">
+      <th mat-header-cell *matHeaderCellDef> Fecha Asignación </th>
+      <td mat-cell *matCellDef="let a"> {{a.fechaAsignacion | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+        <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let a">
+        <span class="nk-badge" 
+              [class.nk-badge--success]="a.estado === 'Activa'"
+              [class.nk-badge--warn]="a.estado === 'Pausada'"
+              [class.nk-badge--danger]="a.estado === 'Finalizada'">
+          {{a.estado}}
+        </span>
+      </td>
+    </ng-container>
+
+        <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Opciones </th>
+      <td mat-cell *matCellDef="let a">
+        <button mat-flat-button 
+                color="accent" 
+                (click)="darDeAlta(a)" 
+                [disabled]="!a.tieneCitasAtendidas"
+                [matTooltip]="a.tieneCitasAtendidas ? 'Finalizar Tratamiento (Alta)' : 'Requiere al menos una cita atendida'"
+                *ngIf="a.estado === 'Activa'">
+          <mat-icon>check_circle</mat-icon>
+          Dar de Alta
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell text-center" [colSpan]="displayedColumns.length">
+        No tiene asignaciones activas.
+      </td>
+    </tr>
+  </table>
+</div>

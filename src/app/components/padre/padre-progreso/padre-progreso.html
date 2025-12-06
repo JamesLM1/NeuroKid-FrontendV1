@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Progreso</h2>
+    <mat-form-field appearance="outline" style="width: 100%; max-width: 300px;">
+      <mat-label>Seleccionar Menor</mat-label>
+      <mat-select [(ngModel)]="menorSeleccionadoId" (ngModelChange)="onMenorChange()">
+        <mat-option *ngFor="let menor of misMenores" [value]="menor.menorId">
+          {{ menor.nombre }} {{ menor.apellido }}
+        </mat-option>
+        <mat-option *ngIf="misMenores.length === 0" disabled>No hay menores registrados</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="dashboard-card" style="margin-bottom: 2rem;">
+    <h3 style="font-weight: 600; margin-bottom: 0.5rem;">Evolución de Eficacia del Tratamiento</h3>
+    <div style="height: 300px; width: 100%;">
+      <canvas #chartEficacia>El gráfico no pudo cargarse.</canvas>
+    </div>
+  </div>
+
+  <h3 style="font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem;">Informes Recientes</h3>
+  <div class="dashboard-table-container">
+    <table mat-table [dataSource]="dsInformes" class="nk-table w-full">
+
+      <ng-container matColumnDef="fecha">
+        <th mat-header-cell *matHeaderCellDef> Fecha </th>
+        <td mat-cell *matCellDef="let i">
+          <ng-container *ngIf="i.fechaCreacion; else fechaLegacy">
+            {{i.fechaCreacion | date: 'dd/MM/yyyy'}}
+          </ng-container>
+          <ng-template #fechaLegacy>
+            {{i.mes || 'N/A'}}/{{i.anio || 'N/A'}}
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="hijo">
+        <th mat-header-cell *matHeaderCellDef> Hijo </th>
+        <td mat-cell *matCellDef="let i"> {{i.nombreMenor}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="psicologo">
+        <th mat-header-cell *matHeaderCellDef> Psicólogo </th>
+        <td mat-cell *matCellDef="let i"> {{i.nombrePsicologo || 'N/A'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="resumen">
+        <th mat-header-cell *matHeaderCellDef> Resumen </th>
+        <td mat-cell *matCellDef="let i">
+          <span class="truncate-text">{{i.titulo || i.resumen || 'Sin resumen'}}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef> Opciones </th>
+        <td mat-cell *matCellDef="let i">
+          <button mat-icon-button color="primary" matTooltip="Descargar Informe" (click)="descargarInforme(i)">
+            <mat-icon>download</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" [colSpan]="displayedColumns.length">
+          No hay informes disponibles para este menor.
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

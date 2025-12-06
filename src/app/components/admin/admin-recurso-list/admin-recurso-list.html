@@ -1,0 +1,46 @@
+<div class="header-container">
+  <h2>Gestión de Recursos Globales</h2>
+  <button mat-flat-button color="primary" (click)="openAddDialog()">
+    <mat-icon>add</mat-icon>
+    Nuevo Recurso
+  </button>
+</div>
+
+<div class="dashboard-filter">
+  <mat-form-field appearance="outline" class="w-full">
+    <mat-label>Filtrar Recursos...</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por título...">
+  </mat-form-field>
+</div>
+
+<div class="recursos-grid">
+  
+  <mat-card *ngFor="let recurso of recursosFiltrados" class="nk-card nk-resource-card">
+    <img mat-card-image src="http://static.photos/education/640x360/3" alt="Recurso">
+    
+    <mat-card-content>
+      <h3>{{ recurso.titulo }}</h3>
+      <p>{{ recurso.descripcion }}</p>
+      <div class="nk-resource-meta">
+        <span>{{ recurso.link }}</span>
+      </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-icon-button color="primary" (click)="openEditDialog(recurso)" matTooltip="Editar">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteRecurso(recurso)" matTooltip="Eliminar">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Estado vacío -->
+  <div *ngIf="recursosFiltrados.length === 0" class="dashboard-empty">
+    <mat-icon>book</mat-icon>
+    <h3>No hay recursos disponibles</h3>
+    <p>Agrega el primer recurso educativo para comenzar.</p>
+  </div>
+
+</div>
