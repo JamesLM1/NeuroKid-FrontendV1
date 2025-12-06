@@ -14,7 +14,7 @@ import { PADREMenorDTO } from '../models/padre-menor.dto';
   providedIn: 'root'
 })
 export class AdminService {
-  ruta_servidor: string = "http://localhost:8080/api/admin";
+  ruta_servidor: string = "https://neurokid-api-v2.onrender.com/api/admin";
 
   constructor(private http: HttpClient) { }
 
