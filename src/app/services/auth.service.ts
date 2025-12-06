@@ -10,7 +10,7 @@ import { DTOToken } from '../models/dto-token';
 export class AuthService {
   
   // 1. Definimos la ruta de la API de autenticación
-  private ruta_servidor: string = "http://localhost:8080/api/auth";
+  private ruta_servidor: string = "https://neurokid-api-v2.onrender.com/api/auth";
   
   // 2. BehaviorSubject para saber si el usuario está logueado
   // (Esto es más avanzado que el ejemplo de tu profe, pero es la forma correcta)
